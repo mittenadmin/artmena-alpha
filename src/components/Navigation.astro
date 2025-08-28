@@ -1,0 +1,38 @@
+---
+export interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const navItems = [
+  { name: "Artists", href: "/artists" },
+  { name: "Artwork", href: "/artworks" },
+  { name: "Exhibitions", href: "/exhibitions" },
+  { name: "Galleries", href: "/galleries" },
+  { name: "News", href: "/news" },
+  { name: "About Us", href: "/about" },
+];
+// Adjust logic as needed
+---
+
+<nav class="ml-10 flex items-baseline space-x-8">
+  {
+    navItems.map((item) => {
+      const isActive = currentPath === item.href;
+      return (
+        <a
+          href={item.href}
+          class={`hover:text-primary px-3 py-2 text-sm transition-colors border-b ${
+            isActive
+              ? "text-primary border-primary"
+              : "text-secondary border-transparent hover:border-primary"
+          }`}
+          aria-current={currentPath === item.href ? "page" : undefined}
+        >
+          {item.name}
+        </a>
+      );
+    })
+  }
+</nav>

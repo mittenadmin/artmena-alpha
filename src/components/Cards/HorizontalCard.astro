@@ -1,0 +1,103 @@
+---
+export interface Props {
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+  description?: string;
+  text1?: string;
+  text2?: string;
+  imageRatio?: "square" | "4:3" | "16:9" | "3:4" | "custom";
+  customRatio?: string; // For custom aspect ratios like "aspect-[5/3]"
+  buttonText?: string;
+  onclick?: string;
+  className?: string;
+}
+
+const {
+  imageSrc,
+  imageAlt,
+  title,
+  description,
+  text1,
+  text2,
+  imageRatio = "4:3",
+  customRatio,
+  onclick,
+  className = "",
+} = Astro.props;
+
+// Map image ratio to Tailwind classes
+const getRatioClass = () => {
+  switch (imageRatio) {
+    case "square":
+      return "aspect-square";
+    case "4:3":
+      return "aspect-[4/3]";
+    case "16:9":
+      return "aspect-[16/9]";
+    case "3:4":
+      return "aspect-[3/4]";
+    case "custom":
+      return customRatio || "aspect-[4/3]";
+    default:
+      return "aspect-[4/3]";
+  }
+};
+---
+
+<div
+  class={`w-full overflow-hidden cursor-pointer  border-b border-transparent hover:border-primary transition-colors ${className}`}
+>
+  <div class="flex flex-col md:flex-row">
+    {/* Image Section */}
+    <div class="w-full md:w-1/3">
+      <div class={`h-64 md:h-full ${getRatioClass()}`}>
+        <img src={imageSrc} alt={imageAlt} class="w-full h-full object-cover" />
+      </div>
+    </div>
+
+    {/* Content Section */}
+    <div
+      class="w-full md:w-1/2 lg:w-3/5 pl-6 py-1 flex flex-col justify-between"
+    >
+      <div class="flex-grow">
+        {/* Title */}
+        <h3 class="text-xl font-bold text-primary mb-3">{title}</h3>
+
+        {/* Text Field 1 */}
+        {
+          text1 && (
+            <p class="text-secondary text-sm  leading-relaxed">{text1}</p>
+          )
+        }
+
+        {/* Text Field 2 */}
+        {
+          text2 && (
+            <p class="text-secondary text-sm  leading-relaxed">{text2}</p>
+          )
+        }
+
+        {/* Description */}
+        <p class="text-secondary text-base mt-4 leading-relaxed">
+          {description}
+        </p>
+      </div>
+
+      {/*/!* Button *!/*/}
+      {/*<div class="mt-auto pt-2">*/}
+      {/*  <button*/}
+      {/*    onClick={(e) => {*/}
+      {/*      e.stopPropagation();*/}
+      {/*      onClick?.();*/}
+      {/*    }}*/}
+      {
+        /*    class="bg-primary text-white px-4 py-2 mb-2 rounded-full hover:bg-secondary transition-colors duration-200 font-medium text-sm cursor-pointer"*/
+      }
+      {/*  >*/}
+      {/*    {buttonText}*/}
+      {/*  </button>*/}
+      {/*</div>*/}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,142 @@
+---
+import "../styles/index.css";
+import "@fontsource/bricolage-grotesque/200.css";
+import "@fontsource/bricolage-grotesque/400.css";
+import "@fontsource/bricolage-grotesque/500.css";
+import "@fontsource/bricolage-grotesque/600.css";
+import "@fontsource/manrope/200.css";
+import "@fontsource/manrope/300.css";
+import "@fontsource/manrope/400.css";
+import "@fontsource/manrope/800.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PhotoCarousel from "../components/PhotoCarousel.astro";
+import CardList from "../components/Cards/CardList.astro";
+import HorizontalCardList from "../components/Cards/HorizontalCardList.astro";
+import FeatureSection from "../components/FeatureSection.astro";
+
+export interface CardData {
+  imageSrc: string;
+  imageAlt: string;
+  preText?: string;
+  title: string;
+  description?: string;
+  text1?: string;
+  text2?: string;
+}
+const featureArtwork: CardData[] = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
+    imageAlt: "Abstract Painting",
+    preText: "Painting",
+    title: "Desert Mirage",
+    text1: "Ahmed Hassan",
+    text2: "$2,800",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
+    imageAlt: "Modern Sculpture",
+    preText: "Sculpture",
+    title: "Flowing Forms",
+    text1: "Layla Benali",
+    text2: "$5,200",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop",
+    imageAlt: "Mixed Media Art",
+    preText: "Mixed Media",
+    title: "Urban Dreams",
+    text1: "Fatima Al-Rashid",
+    text2: "$1,950",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=400&fit=crop",
+    imageAlt: "Digital Art",
+    preText: "Digital Art",
+    title: "Neon Nights",
+    text1: "Omar Khaled",
+    text2: "$750",
+  },
+];
+
+const featuredExhibitions = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&sat=-30",
+    imageAlt: "Gallery Archive Photo",
+    title: "Voices from the Nile",
+    text1: "Jan 12 - May 18, 2025",
+    text2: "Alexandria, Egypt",
+    description: `A compelling multimedia exhibition exploring the intersection of personal and collective memory through contemporary Middle Eastern artists. The show features large-scale installations, intimate photographs, and mixed-media works that examine how cultural heritage transforms across generations. Artists use found objects, family archives, and digital media to create powerful narratives about displacement, identity, and the preservation of stories that might otherwise be lost.`,
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop&hue=45",
+    imageAlt: "Past Exhibition View",
+    title: "Sacred Geometries",
+    text1: "Feb 8 - Jun 22, 2025",
+    text2: "Doha, Qatar",
+    description: `An innovative showcase of cutting-edge digital art that pushes the boundaries of traditional gallery spaces. This exhibition features interactive installations, virtual reality experiences, and AI-generated artworks from emerging artists who are redefining what art can be in our connected world. Visitors can engage with responsive sculptures, immersive video environments, and algorithmic compositions that blur the lines between artist, audience, and artwork itself.`,
+  },
+];
+
+const featuredArticles = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
+    imageAlt: "Modern Art Piece 1",
+    title: "Abstract Expression",
+    description:
+      "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ",
+    text1: "25-05-2025",
+    text2: "Beirut",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+    imageAlt: "Modern Art Piece 2",
+    title: "Color Symphony",
+    description:
+      "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ",
+    text1: "25-05-2025",
+    text2: "Beirut",
+  },
+];
+---
+
+<BaseLayout title="artmena" description="artmena">
+  <PhotoCarousel />
+  {/* Featured Artworks Section */}
+  <CardList
+    title="Featured Artworks"
+    onViewAll={"artworks"}
+    cards={featureArtwork}
+    maxRows={1}
+  />
+
+  {/* Featured Exhibitions Section */}
+  <HorizontalCardList
+    title="Featured Exhibitions"
+    onViewAll={"exhibitions"}
+    cards={featuredExhibitions}
+  />
+
+  {/* Feature Section */}
+  <FeatureSection
+    imageUrl="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=1600&h=900&fit=crop"
+    title="Follow Latest News on Artmena"
+    description="Explore the rich narratives behind contemporary Middle Eastern and North African art. From traditional techniques to modern interpretations, uncover the voices shaping today's art scene."
+    learnMoreText="Learn More"
+    onclick={"Feature section clicked"}
+  />
+
+  {/* news Section */}
+  <HorizontalCardList
+    title="Artmena news"
+    onViewAll={"news"}
+    cards={featuredArticles}
+  />
+</BaseLayout>

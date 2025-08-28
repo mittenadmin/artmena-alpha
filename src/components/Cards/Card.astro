@@ -1,0 +1,68 @@
+---
+export interface Props {
+  imageSrc: string;
+  imageAlt: string;
+  preText?: string;
+  title: string;
+  text1?: string;
+  text2?: string;
+  imageRatio?: "square" | "4:3" | "16:9" | "3:4" | "custom";
+  customRatio?: string; // For custom aspect ratios like "aspect-[5/3]"
+  onclick?: string;
+  className?: string;
+}
+
+const {
+  imageSrc,
+  imageAlt,
+  preText,
+  title,
+  text1,
+  text2,
+  imageRatio = "4:3",
+  customRatio,
+  onclick,
+  className = "",
+} = Astro.props;
+
+// Map image ratio to Tailwind classes
+const getRatioClass = () => {
+  switch (imageRatio) {
+    case "square":
+      return "aspect-square";
+    case "4:3":
+      return "aspect-[4/3]";
+    case "16:9":
+      return "aspect-[16/9]";
+    case "3:4":
+      return "aspect-[3/4]";
+    case "custom":
+      return customRatio || "aspect-[4/3]";
+    default:
+      return "aspect-[4/3]";
+  }
+};
+---
+
+<div
+  class={`overflow-hidden cursor-pointer border-b border-transparent hover:border-primary transition-colors ${className}`}
+>
+  {/* Image */}
+  <div class={`w-full ${getRatioClass()} overflow-hidden`}>
+    <img src={imageSrc} alt={imageAlt} class="w-full h-full object-cover" />
+  </div>
+  {/* Content */}
+  <div class="pt-2">
+    {/* PreText */}
+    {preText && <p class="text-secondary text-sm leading-relaxed">{preText}</p>}
+
+    {/* Title */}
+    <h3 class="text-lg font-bold text-primary mb-1">{title}</h3>
+
+    {/* Text Field 1 */}
+    {text1 && <p class="text-secondary text-sm leading-relaxed">{text1}</p>}
+
+    {/* Text Field 2 */}
+    {text2 && <p class="text-secondary text-sm leading-relaxed">{text2}</p>}
+  </div>
+</div>

@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #222222;
+  --color-primary-light: #22222220;
+  --color-secondary: #707070;
+  --color-secondary-light: #70707020;
+}
+
+/* Set default font for the entire site */
+html {
+  background-color: #fcfcfc;
+  font-family:
+    "Bricolage Grotesque",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    sans-serif;
+  font-weight: 400;
+}
+
+/* Set Manrope font for all headers */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-primary);
+  font-family:
+    "Manrope",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    sans-serif;
+}
+
+h1 {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-weight: 300;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+p {
+  color: var(--color-secondary);
+}
+
+/* Set default transition duration for all elements */
+* {
+  transition-duration: 300ms;
+}
+
+/* Dynamic grid row limiting - responsive based on grid columns */
+/* Mobile: 1 column - hide items after maxRows */
+.grid-max-rows-1 > *:nth-child(n + 3),
+.grid-max-rows-2 > *:nth-child(n + 4),
+.grid-max-rows-3 > *:nth-child(n + 5),
+.grid-max-rows-4 > *:nth-child(n + 6),
+.grid-max-rows-5 > *:nth-child(n + 7) {
+  display: none;
+}
+
+/* Tablet (md): 2 columns - show more items, hide after maxRows*2 */
+@media (min-width: 768px) {
+  .grid-max-rows-1 > *:nth-child(-n + 2),
+  .grid-max-rows-2 > *:nth-child(-n + 4),
+  .grid-max-rows-3 > *:nth-child(-n + 6),
+  .grid-max-rows-4 > *:nth-child(-n + 8),
+  .grid-max-rows-5 > *:nth-child(-n + 10) {
+    display: block;
+  }
+
+  .grid-max-rows-1 > *:nth-child(n + 3),
+  .grid-max-rows-2 > *:nth-child(n + 5),
+  .grid-max-rows-3 > *:nth-child(n + 7),
+  .grid-max-rows-4 > *:nth-child(n + 9),
+  .grid-max-rows-5 > *:nth-child(n + 11) {
+    display: none;
+  }
+}
+
+/* Desktop (lg): 3 columns - show more items, hide after maxRows*3 */
+@media (min-width: 1024px) {
+  .grid-max-rows-1 > *:nth-child(-n + 3),
+  .grid-max-rows-2 > *:nth-child(-n + 6),
+  .grid-max-rows-3 > *:nth-child(-n + 9),
+  .grid-max-rows-4 > *:nth-child(-n + 12),
+  .grid-max-rows-5 > *:nth-child(-n + 15) {
+    display: block;
+  }
+
+  .grid-max-rows-1 > *:nth-child(n + 4),
+  .grid-max-rows-2 > *:nth-child(n + 7),
+  .grid-max-rows-3 > *:nth-child(n + 10),
+  .grid-max-rows-4 > *:nth-child(n + 13),
+  .grid-max-rows-5 > *:nth-child(n + 16) {
+    display: none;
+  }
+}
+
+/* Large desktop (xl): 4 columns - show more items, hide after maxRows*4 */
+@media (min-width: 1280px) {
+  .grid-max-rows-1 > *:nth-child(-n + 4),
+  .grid-max-rows-2 > *:nth-child(-n + 8),
+  .grid-max-rows-3 > *:nth-child(-n + 12),
+  .grid-max-rows-4 > *:nth-child(-n + 16),
+  .grid-max-rows-5 > *:nth-child(-n + 20) {
+    display: block;
+  }
+
+  .grid-max-rows-1 > *:nth-child(n + 5),
+  .grid-max-rows-2 > *:nth-child(n + 9),
+  .grid-max-rows-3 > *:nth-child(n + 13),
+  .grid-max-rows-4 > *:nth-child(n + 17),
+  .grid-max-rows-5 > *:nth-child(n + 21) {
+    display: none;
+  }
+}
