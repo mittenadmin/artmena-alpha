@@ -1,0 +1,175 @@
+---
+import "../../styles/index.css";
+
+import PageHero from "../../components/PageHero.astro";
+import CardList from "../../components/Cards/CardList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export interface CardData {
+  imageSrc: string;
+  imageAlt: string;
+  preText?: string;
+  title: string;
+  description?: string;
+  text1?: string;
+  text2?: string;
+}
+
+const upcomingExhibitions: CardData[] = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&sat=-30",
+    imageAlt: "Gallery Archive Photo",
+    title: "Voices from the Nile",
+    text1: "Jan 12 - May 18, 2025",
+    text2: "Alexandria, Egypt",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop&hue=45",
+    imageAlt: "Past Exhibition View",
+    title: "Sacred Geometries",
+    text1: "Feb 8 - Jun 22, 2025",
+    text2: "Doha, Qatar",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
+    imageAlt: "Contemporary Art Gallery Interior",
+    title: "Echoes of Tomorrow",
+    text1: "Sep 15 - Nov 20, 2025",
+    text2: "Dubai, UAE",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
+    imageAlt: "Modern Gallery Space",
+    title: "Desert Visions: Contemporary Middle Eastern Art",
+    text1: "Oct 3 - Dec 8, 2025",
+    text2: "Cairo, Egypt",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop",
+    imageAlt: "Art Installation View",
+    title: "Fragments of Memory",
+    text1: "Oct 22 - Jan 15, 2026",
+    text2: "Beirut, Lebanon",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=400&fit=crop",
+    imageAlt: "Gallery Exhibition Space",
+    title: "Digital Horizons",
+    text1: "Nov 1 - Feb 28, 2026",
+    text2: "Istanbul, Turkey",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop",
+    imageAlt: "Museum Interior",
+    title: "Threads of Identity",
+    text1: "Nov 12 - Mar 5, 2026",
+    text2: "Marrakech, Morocco",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&sat=-30",
+    imageAlt: "Art Gallery Walls",
+    title: "Urban Stories",
+    text1: "Dec 5 - Apr 10, 2026",
+    text2: "Amman, Jordan",
+  },
+];
+
+const pastExhibitions: CardData[] = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&sat=-30",
+    imageAlt: "Gallery Archive Photo",
+    title: "Voices from the Niles",
+    text1: "Jan 12 - May 18, 2025",
+    text2: "Alexandria, Egypt",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop&hue=45",
+    imageAlt: "Past Exhibition View",
+    title: "Sacred Geometry",
+    text1: "Feb 8 - Jun 22, 2025",
+    text2: "Doha, Qatar",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&brightness=-10",
+    imageAlt: "Historical Exhibition",
+    title: "Between Worlds: Migration Stories",
+    text1: "Mar 15 - Jul 30, 2025",
+    text2: "Tunis, Tunisia",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=400&fit=crop&contrast=15",
+    imageAlt: "Past Gallery Display",
+    title: "Digital Nomads",
+    text1: "Apr 5 - Aug 12, 2025",
+    text2: "Kuwait City, Kuwait",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&hue=180",
+    imageAlt: "Exhibition Archive",
+    title: "Reimagined Traditions",
+    text1: "May 20 - Aug 25, 2025",
+    text2: "Baghdad, Iraq",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&sat=-30",
+    imageAlt: "Past Exhibition Space",
+    title: "Convergence: East Meets West",
+    text1: "Jun 3 - Jul 28, 2025",
+    text2: "Damascus, Syria",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&hue=270",
+    imageAlt: "Historical Gallery View",
+    title: "Liquid Light",
+    text1: "Dec 10, 2024 - Mar 15, 2025",
+    text2: "Casablanca, Morocco",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop&contrast=-15",
+    imageAlt: "Past Museum Display",
+    title: "The Color of Sound",
+    text1: "Oct 5, 2024 - Feb 20, 2025",
+    text2: "Manama, Bahrain",
+  },
+];
+
+const isAllView = false;
+---
+
+<BaseLayout title="artmena/exhibitions" description="artmena">
+  <div class="min-h-screen">
+    <PageHero title="Exhibitions" />
+
+    {/* Upcoming Exhibitions */}
+    <CardList
+      title="Upcoming Exhibitions"
+      onViewAll={"exhibitions/upcoming"}
+      cards={upcomingExhibitions}
+      maxRows={1}
+    />
+
+    {/* Past Exhibitions */}
+    <CardList
+      title="Past Exhibitions"
+      onViewAll={"exhibitions/past"}
+      cards={pastExhibitions}
+      maxRows={1}
+    />
+  </div>
+</BaseLayout>

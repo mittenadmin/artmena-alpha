@@ -1,4 +1,12 @@
 @import "tailwindcss";
+@import "@fontsource/bricolage-grotesque/200.css";
+@import "@fontsource/bricolage-grotesque/400.css";
+@import "@fontsource/bricolage-grotesque/500.css";
+@import "@fontsource/bricolage-grotesque/600.css";
+@import "@fontsource/manrope/200.css";
+@import "@fontsource/manrope/300.css";
+@import "@fontsource/manrope/400.css";
+@import "@fontsource/manrope/800.css";
 
 @theme {
   --color-primary: #222222;
@@ -6,7 +14,11 @@
   --color-secondary: #707070;
   --color-secondary-light: #70707020;
 }
-
+/* Or set a default for ALL transitions */
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 0.5s;
+}
 /* Set default font for the entire site */
 html {
   background-color: #fcfcfc;

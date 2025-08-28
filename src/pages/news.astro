@@ -1,0 +1,109 @@
+---
+import "../styles/index.css";
+
+import PageHero from "../components/PageHero.astro";
+import CardList from "../components/Cards/CardList.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HorizontalCardList from "../components/Cards/HorizontalCardList.astro";
+
+export interface CardData {
+  imageSrc: string;
+  imageAlt: string;
+  preText?: string;
+  title: string;
+  description?: string;
+  text1?: string;
+  text2?: string;
+}
+
+const news: CardData[] = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
+    imageAlt: "Modern Art Piece 1",
+    title: "Abstract Expression",
+    description:
+      "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ",
+    text1: "25-05-2025",
+    text2: "Beirut",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+    imageAlt: "Modern Art Piece 2",
+    title: "Color Symphony",
+    description:
+      "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ",
+    text1: "25-05-2025",
+    text2: "Beirut",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=400&fit=crop", // Paint brushes
+    imageAlt: "Contemporary painting on gallery wall",
+    preText: "Contemporary Art",
+    title: "The Revival of Neo-Expressionism in Middle Eastern Art",
+    text1: "By Dr. Amara Hassan",
+    description:
+      "Exploring how contemporary Middle Eastern artists are embracing bold brushstrokes and emotional intensity to address modern social issues.",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=400&fit=crop", // Palette with paint
+    imageAlt: "Modern sculpture installation in museum",
+    preText: "Sculpture",
+    title: "Breaking Boundaries: Women Sculptors Redefining Form",
+    text1: "By Maya Khalil",
+    description:
+      "A spotlight on female sculptors who are challenging traditional materials and techniques to create powerful statements about identity and space.",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1515405295579-ba7b45403062?w=400&h=400&fit=crop", // Canvas and easel
+    imageAlt: "Digital art display screens",
+    preText: "Digital Art",
+    title: "AI and Creativity: When Algorithms Meet Artistic Vision",
+    text1: "By Omar Chen-Abdullah",
+    description:
+      "An investigation into how artificial intelligence is transforming the creative process and what it means for the future of artistic expression.",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=400&h=400&fit=crop", // Art supplies
+    imageAlt: "Photography exhibition prints",
+    preText: "Photography",
+    title: "Through the Lens: Street Photography in Arab Cities",
+    text1: "By Layla Mansouri",
+    description:
+      "A compelling look at photographers documenting urban life and social change across major Arab metropolises.",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578926314433-e2789279f4aa?w=400&h=400&fit=crop", // Sculpture tools
+    imageAlt: "Performance art in gallery space",
+    preText: "Performance Art",
+    title: "Bodies in Motion: The Rise of Performance Art in MENA",
+    text1: "By Zaid Al-Rashid",
+    description:
+      "How performance artists are using their bodies as canvases to explore themes of freedom, restriction, and cultural identity.",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1558865869-c93f6f8482af?w=400&h=400&fit=crop", // Abstract painting
+    imageAlt: "Abstract art close-up",
+    preText: "Abstract Art",
+    title: "Color and Emotion: The Abstract Movement in Gulf States",
+    text1: "By Dr. Fatima Al-Zahra",
+    description:
+      "Examining how abstract artists in the Gulf are using color theory and geometric forms to express complex emotional landscapes.",
+  },
+];
+---
+
+<BaseLayout title="artmena/news" description="artmena">
+  <div class="min-h-screen">
+    <PageHero title="News" />
+
+    <HorizontalCardList cards={news} />
+  </div>
+</BaseLayout>

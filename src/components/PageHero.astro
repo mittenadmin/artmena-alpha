@@ -1,0 +1,23 @@
+---
+import { ClientRouter, slide } from "astro:transitions";
+export interface Props {
+  subtitle?: string;
+  title: string;
+}
+
+const { subtitle = "Explore", title } = Astro.props;
+---
+
+<section class="relative h-32 border-b border-primary">
+  <ClientRouter />
+  <div
+    class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col items-center justify-center"
+  >
+    <h3 transition:name={subtitle} class="uppercase">
+      {subtitle}
+    </h3>
+    <h1 class="text-5xl font-bold" transition:name={title}>
+      {title}
+    </h1>
+  </div>
+</section>

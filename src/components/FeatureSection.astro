@@ -10,7 +10,10 @@ export interface Props {
 const { imageUrl, title, description, onclick } = Astro.props;
 ---
 
-<section class="w-full bg-primary">
+<section
+  class="w-full bg-primary"
+  onclick={`window.location.href = '${onclick}'`}
+>
   <div class="flex flex-col md:flex-row cursor-pointer">
     {/* Image - 2/3 width on desktop */}
     <div class="md:w-2/3 h-64 md:h-96">

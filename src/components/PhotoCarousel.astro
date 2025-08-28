@@ -1,5 +1,7 @@
 ---
 // PhotoCarousel.astro
+
+import { ClientRouter, fade } from "astro:transitions";
 export interface Props {
   class?: string;
 }
@@ -30,6 +32,7 @@ const images = [
 <div
   class={`photo-carousel relative w-full h-112 md:h-[700px] overflow-hidden ${className || ""}`}
 >
+  <ClientRouter />
   <div
     class="carousel-track flex transition-transform duration-700 ease-in-out h-full"
     data-slides={images.length}
@@ -37,7 +40,7 @@ const images = [
     {
       images.map((image, index) => (
         <div class="w-full h-full flex-shrink-0 relative" data-slide={index}>
-          <div class="max-w-7xl mx-auto px-8 flex h-32 items-center">
+          <div class="max-w-7xl mx-auto px-8 flex h-32 items-center border-b border-primary ">
             <div class="w-1/3">
               <p class="text-secondary text-sm leading-relaxed">
                 October 7, 2024 - October 31, 2024
@@ -80,3 +83,99 @@ const images = [
     }
   </div>
 </div>
+
+<script>
+  class PhotoCarousel {
+    private carousel: HTMLElement | null;
+    private track: HTMLElement | null;
+    private indicators: NodeListOf<HTMLElement>;
+    private currentSlide: number = 0;
+    private totalSlides: number = 0;
+    private intervalId: number | null = null;
+    private slideInterval: number = 4000; // 4 seconds
+
+    constructor() {
+      this.carousel = document.querySelector(".photo-carousel");
+      this.track = document.querySelector(".carousel-track");
+      this.indicators = document.querySelectorAll(".carousel-indicator");
+
+      if (this.track) {
+        this.totalSlides = parseInt(this.track.dataset.slides || "0");
+      }
+
+      this.init();
+    }
+
+    private init(): void {
+      if (!this.carousel || !this.track || this.totalSlides === 0) return;
+
+      this.setupIndicators();
+      this.startAutoSlide();
+    }
+
+    private setupIndicators(): void {
+      this.indicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+          this.goToSlide(index);
+        });
+      });
+    }
+
+    private goToSlide(slideIndex: number): void {
+      if (!this.track) return;
+
+      this.currentSlide = slideIndex;
+      const translateX = -slideIndex * 100;
+      this.track.style.transform = `translateX(${translateX}%)`;
+
+      this.updateIndicators();
+    }
+
+    private updateIndicators(): void {
+      this.indicators.forEach((indicator, index) => {
+        if (index === this.currentSlide) {
+          indicator.classList.remove("bg-gray-500", "bg-opacity-50");
+          indicator.classList.add("bg-white", "scale-125");
+        } else {
+          indicator.classList.remove("bg-white", "scale-125");
+          indicator.classList.add("bg-gray-500", "bg-opacity-50");
+        }
+      });
+    }
+
+    private nextSlide(): void {
+      const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+      this.goToSlide(nextIndex);
+    }
+
+    private startAutoSlide(): void {
+      this.intervalId = window.setInterval(() => {
+        this.nextSlide();
+      }, this.slideInterval);
+    }
+
+    private stopAutoSlide(): void {
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
+    }
+
+    public destroy(): void {
+      this.stopAutoSlide();
+    }
+  }
+
+  // Initialize carousel when DOM is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    new PhotoCarousel();
+  });
+
+  // Handle page navigation cleanup
+  document.addEventListener("astro:before-preparation", () => {
+    const carousel = document.querySelector(".photo-carousel");
+    if (carousel && (carousel as any).carouselInstance) {
+      (carousel as any).carouselInstance.destroy();
+    }
+  });
+</script>

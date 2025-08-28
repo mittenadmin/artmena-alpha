@@ -1,0 +1,162 @@
+---
+import "../../../styles/index.css";
+
+import PageHero from "../../../components/PageHero.astro";
+import CardList from "../../../components/Cards/CardList.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export interface CardData {
+  imageSrc: string;
+  imageAlt: string;
+  preText?: string;
+  title: string;
+  description?: string;
+  text1?: string;
+  text2?: string;
+}
+
+export async function getStaticPaths() {
+  return [
+    { params: { category: "all" } },
+    { params: { category: "paintings" } },
+    { params: { category: "ceramics" } },
+  ];
+}
+
+const featuredArtists: CardData[] = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Ahmed Hassan",
+    text1: "Contemporary Painter",
+    text2: "Cairo, Egypt",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Layla Benali",
+    text1: "Sculptor",
+    text2: "Marrakech, Morocco",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Fatima Al-Rashid",
+    text1: "Mixed Media Artist",
+    text2: "Dubai, UAE",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Omar Khaled",
+    text1: "Digital Artist",
+    text2: "Beirut, Lebanon",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Sara Abdallah",
+    text1: "Photographer",
+    text2: "Tunis, Tunisia",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Nour El-Din",
+    text1: "Calligraphy Artist",
+    text2: "Istanbul, Turkey",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Khalil Ibrahim",
+    text1: "Installation Artist",
+    text2: "Amman, Jordan",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Yasmin Farouk",
+    text1: "Textile Artist",
+    text2: "Alexandria, Egypt",
+  },
+];
+
+const emergingArtists: CardData[] = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Ali Mahmoud",
+    text1: "Street Artist",
+    text2: "Baghdad, Iraq",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Zara Nassif",
+    text1: "Ceramic Artist",
+    text2: "Damascus, Syria",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Hassan Bourji",
+    text1: "Video Artist",
+    text2: "Casablanca, Morocco",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+    imageAlt: "Artist Portrait",
+    title: "Mona Sayyed",
+    text1: "Performance Artist",
+    text2: "Kuwait City, Kuwait",
+  },
+];
+
+// Get the category from URL params
+const { category } = Astro.params;
+
+// Determine which artists to show based on category
+let artists: CardData[];
+let pageTitle: string;
+
+switch (category) {
+  case "all":
+    artists = [...featuredArtists, ...emergingArtists];
+    pageTitle = "Artists";
+    break;
+  case "paintings":
+    // For now, show empty until filtering logic is added
+    artists = [];
+    pageTitle = "Painting Artists";
+    break;
+  case "ceramics":
+    // For now, show empty until filtering logic is added
+    artists = [];
+    pageTitle = "Ceramic Artists";
+    break;
+  default:
+    artists = [...featuredArtists, ...emergingArtists];
+    pageTitle = "Artists";
+}
+---
+
+<BaseLayout title="artmena/artists" description="artmena">
+  <div class="min-h-screen">
+    <PageHero title={pageTitle} />
+
+    <CardList cards={artists} imageRatio={"3:4"} />
+  </div>
+</BaseLayout>

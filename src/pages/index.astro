@@ -1,13 +1,6 @@
 ---
 import "../styles/index.css";
-import "@fontsource/bricolage-grotesque/200.css";
-import "@fontsource/bricolage-grotesque/400.css";
-import "@fontsource/bricolage-grotesque/500.css";
-import "@fontsource/bricolage-grotesque/600.css";
-import "@fontsource/manrope/200.css";
-import "@fontsource/manrope/300.css";
-import "@fontsource/manrope/400.css";
-import "@fontsource/manrope/800.css";
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PhotoCarousel from "../components/PhotoCarousel.astro";
 import CardList from "../components/Cards/CardList.astro";
@@ -28,41 +21,33 @@ const featureArtwork: CardData[] = [
     imageSrc:
       "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
     imageAlt: "Abstract Painting",
-    preText: "Painting",
     title: "Desert Mirage",
     text1: "Ahmed Hassan",
-    text2: "$2,800",
   },
   {
     imageSrc:
       "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
     imageAlt: "Modern Sculpture",
-    preText: "Sculpture",
     title: "Flowing Forms",
     text1: "Layla Benali",
-    text2: "$5,200",
   },
   {
     imageSrc:
       "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop",
     imageAlt: "Mixed Media Art",
-    preText: "Mixed Media",
     title: "Urban Dreams",
     text1: "Fatima Al-Rashid",
-    text2: "$1,950",
   },
   {
     imageSrc:
       "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=400&fit=crop",
     imageAlt: "Digital Art",
-    preText: "Digital Art",
     title: "Neon Nights",
     text1: "Omar Khaled",
-    text2: "$750",
   },
 ];
 
-const featuredExhibitions = [
+const upcomingExhibitions = [
   {
     imageSrc:
       "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&sat=-30",
@@ -83,7 +68,7 @@ const featuredExhibitions = [
   },
 ];
 
-const featuredArticles = [
+const newArticles = [
   {
     imageSrc:
       "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
@@ -111,17 +96,17 @@ const featuredArticles = [
   <PhotoCarousel />
   {/* Featured Artworks Section */}
   <CardList
-    title="Featured Artworks"
-    onViewAll={"artworks"}
+    title="Featured Artwork"
+    onViewAll={"artwork"}
     cards={featureArtwork}
     maxRows={1}
   />
 
   {/* Featured Exhibitions Section */}
   <HorizontalCardList
-    title="Featured Exhibitions"
+    title="Upcoming Exhibitions"
     onViewAll={"exhibitions"}
-    cards={featuredExhibitions}
+    cards={upcomingExhibitions}
   />
 
   {/* Feature Section */}
@@ -130,13 +115,9 @@ const featuredArticles = [
     title="Follow Latest News on Artmena"
     description="Explore the rich narratives behind contemporary Middle Eastern and North African art. From traditional techniques to modern interpretations, uncover the voices shaping today's art scene."
     learnMoreText="Learn More"
-    onclick={"Feature section clicked"}
+    onclick={"news"}
   />
 
   {/* news Section */}
-  <HorizontalCardList
-    title="Artmena news"
-    onViewAll={"news"}
-    cards={featuredArticles}
-  />
+  <HorizontalCardList title="News" onViewAll={"news"} cards={newArticles} />
 </BaseLayout>

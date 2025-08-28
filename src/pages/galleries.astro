@@ -1,0 +1,142 @@
+---
+import "../styles/index.css";
+
+import PageHero from "../components/PageHero.astro";
+import CardList from "../components/Cards/CardList.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export interface CardData {
+  imageSrc: string;
+  imageAlt: string;
+  preText?: string;
+  title: string;
+  description?: string;
+  text1?: string;
+  text2?: string;
+}
+
+const galleries: CardData[] = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1549289524-06cf8837ace5?w=400&h=400&fit=crop", // Gallery wall
+    imageAlt: "Modern Gallery Logo",
+    title: "Meridian Contemporary Gallery",
+    text1: "Dubai, UAE",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=400&h=400&fit=crop", // Ceramic pottery
+    imageAlt: "Art Gallery Signage",
+    title: "The Nile Art Collective",
+    text1: "Cairo, Egypt",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop", // Colorful paint tubes
+    imageAlt: "Gallery Exterior Logo",
+    title: "Crossroads Gallery",
+    text1: "Beirut, Lebanon",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=400&fit=crop", // Art studio setup
+    imageAlt: "Contemporary Art Space Logo",
+    title: "Bosphorus Modern",
+    text1: "Istanbul, Turkey",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop",
+    imageAlt: "Gallery Branding",
+    title: "Atlas Art House",
+    text1: "Marrakech, Morocco",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&hue=45",
+    imageAlt: "Art Center Logo",
+    title: "Desert Rose Gallery",
+    text1: "Amman, Jordan",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=400&h=400&fit=crop&sat=30",
+    imageAlt: "Gallery Identity",
+    title: "Silk Road Arts",
+    text1: "Doha, Qatar",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1554774853-719586f82d77?w=400&h=400&fit=crop&contrast=20",
+    imageAlt: "Modern Art Gallery Logo",
+    title: "Medina Contemporary",
+    text1: "Tunis, Tunisia",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662015879-c4d4e5c7e7a5?w=400&h=400&fit=crop&hue=180",
+    imageAlt: "Art Space Branding",
+    title: "Gulf Arts Foundation",
+    text1: "Kuwait City, Kuwait",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&brightness=10",
+    imageAlt: "Gallery Logo Design",
+    title: "Babylon Arts Center",
+    text1: "Baghdad, Iraq",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&sat=-20",
+    imageAlt: "Contemporary Gallery Identity",
+    title: "Levant Modern Gallery",
+    text1: "Damascus, Syria",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=400&h=400&fit=crop&hue=270",
+    imageAlt: "Art Gallery Emblem",
+    title: "Casablanca Art Quarter",
+    text1: "Casablanca, Morocco",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1554774853-719586f82d77?w=400&h=400&fit=crop&hue=90",
+    imageAlt: "Gallery Brand Logo",
+    title: "Pearl Arts Collective",
+    text1: "Manama, Bahrain",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662015879-c4d4e5c7e7a5?w=400&h=400&fit=crop&contrast=-10",
+    imageAlt: "Modern Art Space Logo",
+    title: "Alexandria Art Hub",
+    text1: "Alexandria, Egypt",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&sat=50",
+    imageAlt: "Gallery Visual Identity",
+    title: "Phoenicia Gallery",
+    text1: "Tripoli, Lebanon",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&brightness=-15",
+    imageAlt: "Art Center Branding",
+    title: "Oasis Contemporary",
+    text1: "Abu Dhabi, UAE",
+  },
+];
+
+const isAllView = false;
+---
+
+<BaseLayout title="artmena/galleries" description="artmena">
+  <div class="min-h-screen">
+    <PageHero title="Galleries" />
+
+    <CardList cards={galleries} imageRatio={"square"} />
+  </div>
+</BaseLayout>

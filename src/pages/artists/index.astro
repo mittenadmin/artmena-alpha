@@ -1,5 +1,20 @@
 ---
-// Sample artist data
+import "../../styles/index.css";
+
+import PageHero from "../../components/PageHero.astro";
+import CardList from "../../components/Cards/CardList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export interface CardData {
+  imageSrc: string;
+  imageAlt: string;
+  preText?: string;
+  title: string;
+  description?: string;
+  text1?: string;
+  text2?: string;
+}
+
 const featuredArtists: CardData[] = [
   {
     imageSrc:
@@ -101,4 +116,30 @@ const emergingArtists: CardData[] = [
     text2: "Kuwait City, Kuwait",
   },
 ];
+
+const isAllView = false;
 ---
+
+<BaseLayout title="artmena/artists" description="artmena">
+  <div class="min-h-screen">
+    <PageHero title="Artists" />
+
+    {/* Featured Artists */}
+    <CardList
+      title="Featured Artists"
+      onViewAll={"artists/category/all"}
+      cards={featuredArtists}
+      maxRows={1}
+      imageRatio={"3:4"}
+    />
+
+    {/* Emerging Artists */}
+    <CardList
+      title="Emerging Artists"
+      onViewAll={"artists/category/all"}
+      cards={emergingArtists}
+      maxRows={1}
+      imageRatio={"3:4"}
+    />
+  </div>
+</BaseLayout>

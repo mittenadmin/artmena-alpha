@@ -1,0 +1,138 @@
+---
+import "../styles/index.css";
+
+import PageHero from "../components/PageHero.astro";
+import CardList from "../components/Cards/CardList.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export interface CardData {
+  imageSrc: string;
+  imageAlt: string;
+  preText?: string;
+  title: string;
+  description?: string;
+  text1?: string;
+  text2?: string;
+}
+
+const artwork: CardData[] = [
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
+    imageAlt: "Abstract Painting",
+    preText: "Painting",
+    title: "Desert Mirage",
+    text1: "Ahmed Hassan",
+    text2: "$2,800",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
+    imageAlt: "Modern Sculpture",
+    preText: "Sculpture",
+    title: "Flowing Forms",
+    text1: "Layla Benali",
+    text2: "$5,200",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop",
+    imageAlt: "Mixed Media Art",
+    preText: "Mixed Media",
+    title: "Urban Dreams",
+    text1: "Fatima Al-Rashid",
+    text2: "$1,950",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=400&fit=crop",
+    imageAlt: "Digital Art",
+    preText: "Digital Art",
+    title: "Neon Nights",
+    text1: "Omar Khaled",
+    text2: "$750",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&hue=30",
+    imageAlt: "Photography",
+    preText: "Photography",
+    title: "Silent Moments",
+    text1: "Sara Abdallah",
+    text2: "$420",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop&sat=-100",
+    imageAlt: "Calligraphy Art",
+    preText: "Calligraphy",
+    title: "Sacred Words",
+    text1: "Nour El-Din",
+    text2: "$1,100",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop",
+    imageAlt: "Installation Art",
+    preText: "Installation",
+    title: "Memory Palace",
+    text1: "Khalil Ibrahim",
+    text2: "$8,500",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&hue=30",
+    imageAlt: "Textile Art",
+    preText: "Textile",
+    title: "Woven Stories",
+    text1: "Yasmin Farouk",
+    text2: "$680",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=400&fit=crop&sat=50",
+    imageAlt: "Street Art",
+    preText: "Street Art",
+    title: "Voices of the City",
+    text1: "Ali Mahmoud",
+    text2: " ",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&brightness=10",
+    imageAlt: "Ceramic Art",
+    preText: "Ceramics",
+    title: "Earth Elements",
+    text1: "Zara Nassif",
+    text2: "$320",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop&hue=180",
+    imageAlt: "Video Art",
+    preText: "Video Art",
+    title: "Time Fragments",
+    text1: "Hassan Bourji",
+    text2: "$1,800",
+  },
+  {
+    imageSrc:
+      "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&contrast=20",
+    imageAlt: "Performance Art",
+    preText: "Performance",
+    title: "Breaking Boundaries",
+    text1: "Mona Sayyed",
+    text2: " ",
+  },
+];
+
+const isAllView = false;
+---
+
+<BaseLayout title="artmena/artwork" description="artmena">
+  <div class="min-h-screen">
+    <PageHero title="Artwork" />
+
+    <CardList cards={artwork} />
+  </div>
+</BaseLayout>
