@@ -2,7 +2,7 @@
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { name: "Artists", href: "/artists/category/all" },
+  { name: "Artists", href: "/artists" },
   { name: "Artwork", href: "/artwork" },
   { name: "Exhibitions", href: "/exhibitions" },
   { name: "Galleries", href: "/galleries" },
@@ -15,9 +15,12 @@ const navItems = [
 <nav class="ml-10 flex items-baseline space-x-8">
   {
     navItems.map((item) => {
-      const isActive = item.name === "Artists" 
-        ? currentPath.startsWith("/artists") 
-        : currentPath.startsWith(item.href) && (currentPath === item.href || currentPath.startsWith(item.href + '/'));
+      const isActive =
+        item.name === "Artists"
+          ? currentPath.startsWith("/artists")
+          : currentPath.startsWith(item.href) &&
+            (currentPath === item.href ||
+              currentPath.startsWith(item.href + "/"));
       return (
         <a
           href={item.href}

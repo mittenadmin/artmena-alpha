@@ -12,6 +12,7 @@ export interface CardData {
 }
 
 interface Props {
+  objectType: string;
   title?: string;
   onViewAll?: string;
   children?: React.ReactNode;
@@ -23,17 +24,25 @@ interface Props {
 }
 
 const {
+  objectType,
   title,
   onViewAll,
   children,
   enableScroll = false,
   maxRows,
   cards,
+  cardsPerRow,
   imageRatio,
 } = Astro.props;
+
 const getMaxRowsClass = () => {
   if (!maxRows || enableScroll || maxRows > 5) return "";
   return `grid-max-rows-${maxRows}`;
+};
+
+const getMaxColsClass = () => {
+  if (!cardsPerRow) return "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
+  return `md:grid-cols-${cardsPerRow}`;
 };
 ---
 
@@ -64,7 +73,7 @@ const getMaxRowsClass = () => {
       <div
         class={enableScroll
           ? "flex space-x-4 pb-4"
-          : `grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${getMaxRowsClass()}`}
+          : `grid gap-4 grid-cols-1  ${getMaxRowsClass()} ${getMaxColsClass()}`}
       >
         {
           children ||
@@ -78,7 +87,7 @@ const getMaxRowsClass = () => {
                   text1={card.text1}
                   text2={card.text2}
                   imageRatio={imageRatio}
-                  onclick={"Card clicked"}
+                  objectType={objectType}
                 />
               </div>
             ))

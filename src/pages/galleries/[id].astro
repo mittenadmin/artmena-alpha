@@ -1,0 +1,476 @@
+---
+import "../../styles/index.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import CardList from "../../components/Cards/CardList.astro";
+
+export interface GalleryData {
+  id: string;
+  name: string;
+  location: string;
+  country: string;
+  contact: string[];
+  about: string;
+  imageSrc: string;
+  imageAlt: string;
+  artwork: {
+    id: string;
+    title: string;
+    category: string;
+    imageSrc: string;
+    imageAlt: string;
+  }[];
+  artists: {
+    id: string;
+    title: string;
+    category: string;
+    imageSrc: string;
+    imageAlt: string;
+  }[];
+  exhibitions: {
+    upcoming: {
+      id: string;
+      title: string;
+      date: string;
+      location: string;
+      imageSrc: string;
+      imageAlt: string;
+    }[];
+    past: {
+      id: string;
+      title: string;
+      date: string;
+      location: string;
+      imageSrc: string;
+      imageAlt: string;
+    }[];
+  };
+}
+
+export const gallery: GalleryData = {
+  id: "artist-001",
+  name: "Museum of Modern Art",
+  location: "Brooklyn, NY",
+  country: "USA",
+  contact: ["+1 (313) 555 - 1505", "about@moma.com"],
+  about: `The Museum of Modern Art (MoMA) in New York City stands as one of the world's most influential institutions dedicated to modern and contemporary art. Founded in 1929 by a group of influential patrons including Abby Aldrich Rockefeller (wife of John D. Rockefeller Jr.), the museum was established with the radical mission of helping people understand and enjoy the visual arts of our time.
+Located in Midtown Manhattan on 53rd Street between Fifth and Sixth Avenues, MoMA houses an unparalleled collection spanning painting, sculpture, design, photography, architecture, film, and electronic media from the 1880s to the present. The museum's collection includes iconic masterpieces by artists such as Van Gogh, Picasso, Warhol, and Pollock, making it a pilgrimage site for art lovers worldwide.
+MoMA has played a pivotal role in developing and collecting modern art, often being the first major institution to recognize and exhibit groundbreaking artistic movements. The museum's curatorial vision has helped define what constitutes significant art of the modern era, from Impressionism and Cubism to Pop Art and beyond.
+`,
+  imageSrc:
+    "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
+  imageAlt:
+    "Portrait of Marina Delacroix, a woman with dark hair wearing a paint-splattered apron in her studio",
+  artwork: [
+    {
+      id: "artwork-001",
+      title: "Urban Symphony",
+      category: "Mixed Media",
+      imageSrc:
+        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800&fit=crop",
+      imageAlt:
+        "Abstract mixed media artwork featuring vibrant colors and urban textures",
+    },
+    {
+      id: "artwork-002",
+      title: "Reflections in Blue",
+      category: "Oil Painting",
+      imageSrc:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
+      imageAlt:
+        "Oil painting with various shades of blue depicting water reflections",
+    },
+    {
+      id: "artwork-003",
+      title: "Digital Dreams",
+      category: "Digital Art",
+      imageSrc:
+        "https://images.unsplash.com/photo-1549490349-8643362247b5?w=600&h=800&fit=crop",
+      imageAlt: "Digital artwork with geometric patterns and neon colors",
+    },
+    {
+      id: "artwork-004",
+      title: "City Pulse",
+      category: "Acrylic",
+      imageSrc:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
+      imageAlt:
+        "Acrylic painting capturing the energy and movement of city life",
+    },
+    {
+      id: "artwork-005",
+      title: "Metamorphosis",
+      category: "Sculpture",
+      imageSrc:
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
+      imageAlt:
+        "Contemporary sculpture exploring themes of transformation and growth",
+    },
+  ],
+  artists: [
+    {
+      id: "artist001",
+      title: "Elena Vasquez",
+      category: "Installation Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1494790108755-2616c09c065e?w=400&h=400&fit=crop",
+      imageAlt:
+        "Portrait of Elena Vasquez, contemporary installation artist with short dark hair",
+    },
+    {
+      id: "artist002",
+      title: "James Liu",
+      category: "Photographer",
+      imageSrc:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+      imageAlt: "Professional headshot of photographer James Liu in his studio",
+    },
+    {
+      id: "artist003",
+      title: "Amara Johnson",
+      category: "Sculptor",
+      imageSrc:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+      imageAlt: "Portrait of sculptor Amara Johnson smiling in her workshop",
+    },
+    {
+      id: "artist004",
+      title: "Kai Nakamura",
+      category: "Digital Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+      imageAlt:
+        "Digital artist Kai Nakamura working at computer with multiple screens",
+    },
+    {
+      id: "artist005",
+      title: "Sofia Mendez",
+      category: "Interactive Media Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=400&fit=crop",
+      imageAlt:
+        "Sofia Mendez standing next to one of her interactive digital installations",
+    },
+    {
+      id: "artist006",
+      title: "Robert Kim",
+      category: "Video Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
+      imageAlt:
+        "Video artist Robert Kim adjusting camera equipment in his studio",
+    },
+    {
+      id: "artist007",
+      title: "Luna Petrov",
+      category: "Generative Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop",
+      imageAlt:
+        "Portrait of Luna Petrov with algorithmic art patterns reflected in her glasses",
+    },
+    {
+      id: "artist008",
+      title: "Fatima Al-Zahra",
+      category: "Mixed Media Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1494790108755-2616c09c065e?w=400&h=500&fit=crop&hue=30",
+      imageAlt:
+        "Mixed media artist Fatima Al-Zahra working with textiles and found objects",
+    },
+    {
+      id: "artist009",
+      title: "Carlos Rivera",
+      category: "Documentary Photographer",
+      imageSrc:
+        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
+      imageAlt:
+        "Documentary photographer Carlos Rivera with vintage camera equipment",
+    },
+    {
+      id: "artist010",
+      title: "Priya Sharma",
+      category: "Textile Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop",
+      imageAlt:
+        "Textile artist Priya Sharma working on a large embroidered piece",
+    },
+    {
+      id: "artist011",
+      title: "Tanya Aborigine",
+      category: "Environmental Installation Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=400&fit=crop",
+      imageAlt:
+        "Environmental artist Tanya Aborigine creating coral-inspired sculptures",
+    },
+    {
+      id: "artist012",
+      title: "Marcus Lee",
+      category: "Video Installation Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop",
+      imageAlt:
+        "Marcus Lee setting up projection equipment for video installation",
+    },
+    {
+      id: "artist013",
+      title: "Nina Green",
+      category: "Sustainability Sculptor",
+      imageSrc:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop",
+      imageAlt:
+        "Sculptor Nina Green in her studio surrounded by recycled material sculptures",
+    },
+    {
+      id: "artist014",
+      title: "André Kowalski",
+      category: "Sound Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
+      imageAlt:
+        "Sound artist André Kowalski adjusting audio equipment for interactive installation",
+    },
+    {
+      id: "artist015",
+      title: "Yuki Sato",
+      category: "Performance Artist",
+      imageSrc:
+        "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop",
+      imageAlt:
+        "Performance artist Yuki Sato in contemplative pose during rehearsal",
+    },
+    {
+      id: "artist016",
+      title: "Maria Santos",
+      category: "Abstract Painter",
+      imageSrc:
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop",
+      imageAlt:
+        "Abstract painter Maria Santos working on a large canvas in natural light",
+    },
+    {
+      id: "artist017",
+      title: "Erik Hansen",
+      category: "Experimental Composer",
+      imageSrc:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&hue=240",
+      imageAlt:
+        "Composer Erik Hansen at piano surrounded by experimental sound equipment",
+    },
+  ],
+  exhibitions: {
+    upcoming: [
+      {
+        id: "exhibition-001",
+        title: "Chromatic Visions: New Works",
+        date: "2025-09-15",
+        location: "Gallery 42, SoHo",
+        imageSrc:
+          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
+        imageAlt:
+          "Gallery space with white walls displaying colorful contemporary artworks",
+      },
+      {
+        id: "exhibition-002",
+        title: "Collective Consciousness",
+        date: "2025-11-03",
+        location: "Brooklyn Art Center",
+        imageSrc:
+          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
+        imageAlt:
+          "Group exhibition space with various contemporary art installations",
+      },
+    ],
+    past: [
+      {
+        id: "exhibition-003",
+        title: "Urban Landscapes",
+        date: "2025-03-20",
+        location: "Modern Arts Museum",
+        imageSrc:
+          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
+        imageAlt:
+          "Museum exhibition featuring urban-themed contemporary artworks",
+      },
+      {
+        id: "exhibition-004",
+        title: "Emerging Voices",
+        date: "2024-11-12",
+        location: "Chelsea Gallery District",
+        imageSrc:
+          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
+        imageAlt: "Gallery opening with people viewing contemporary art pieces",
+      },
+      {
+        id: "exhibition-005",
+        title: "Digital Renaissance",
+        date: "2024-08-05",
+        location: "TechArt Space",
+        imageSrc:
+          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
+        imageAlt: "Modern gallery space showcasing digital art installations",
+      },
+      {
+        id: "exhibition-006",
+        title: "First Solo Show",
+        date: "2024-05-18",
+        location: "Williamsburg Art Gallery",
+        imageSrc:
+          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
+        imageAlt:
+          "Intimate gallery space featuring Marina's debut solo exhibition",
+      },
+    ],
+  },
+};
+export async function getStaticPaths() {
+  return [{ params: { id: "1" } }, { params: { id: "1" } }];
+}
+---
+
+<BaseLayout title={`artmena/ ${gallery.name}`}>
+  <div class="min-h-screen">
+    <PageHero subtitle={"Learn About"} title={gallery.name} />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex">
+        {/* Image Section */}
+        <img
+          src={gallery.imageSrc}
+          alt={gallery.imageAlt}
+          class="w-1/4 h-full aspect-square object-cover"
+        />
+        <div class="w-1/4 flex flex-col gap-2 ps-4">
+          <div>
+            <h2>Address</h2>
+            <h3>{gallery.location}</h3>
+            <h3>{gallery.country}</h3>
+          </div>
+          <div>
+            <h2>Contact</h2>
+            {gallery.contact.map((contact) => <h3>{contact}</h3>)}
+          </div>
+        </div>
+        <div class="w-1/2">
+          <p class="mt-4 !text-primary">{gallery.about}</p>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-b border-primary">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex">
+        {/* mini nav bar*/}
+        <div
+          id="nav-exhibitions"
+          data-section="exhibitions"
+          class="w-1/4 border-b-2 border-primary hover:border-primary mr-8 py-4 cursor-pointer active nav-item ps-2"
+        >
+          Exhibitions
+        </div>
+        <div
+          id="nav-artworks"
+          data-section="artworks"
+          class="w-1/4 border-b-2 border-transparent hover:border-primary mr-8 py-4 cursor-pointer nav-item ps-2"
+        >
+          Artworks
+        </div>
+        <div
+          id="nav-artists"
+          data-section="artists"
+          class="w-1/4 border-b-2 border-transparent hover:border-primary mr-8 py-4 cursor-pointer nav-item ps-2"
+        >
+          Artists
+        </div>
+      </div>
+    </div>
+
+    {/* Exhibitions section */}
+    <div id="section-exhibitions" class="section-content">
+      {/* Upcoming Exhibitions */}
+      <CardList
+        objectType="exhibitions"
+        title="Upcoming Exhibitions"
+        cards={gallery.exhibitions.upcoming}
+        maxRows={1}
+      />
+
+      {/* Past Exhibitions */}
+      <CardList
+        objectType="exhibitions"
+        title="Past Exhibitions"
+        cards={gallery.exhibitions.upcoming}
+        maxRows={1}
+      />
+    </div>
+
+    {/* Artworks section */}
+    <div id="section-artworks" class="section-content hidden">
+      <CardList objectType="artwork" cards={gallery.artwork} />
+    </div>
+
+    {/* Artists section */}
+    <div id="section-artists" class="section-content hidden">
+      <CardList objectType="artists" cards={gallery.artists} />
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  function initializeNavigation() {
+    const navItems = document.querySelectorAll(".nav-item");
+    const sections = document.querySelectorAll(".section-content");
+
+    // Remove any existing event listeners to prevent duplicates
+    navItems.forEach((item) => {
+      const newItem = item.cloneNode(true);
+      item.parentNode?.replaceChild(newItem, item);
+    });
+
+    // Get the updated node list after cloning
+    const updatedNavItems = document.querySelectorAll(".nav-item");
+
+    updatedNavItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const targetSection = (item as HTMLElement).dataset.section;
+
+        // Remove active class from all nav items
+        updatedNavItems.forEach((nav) => {
+          nav.classList.remove("active");
+          nav.classList.remove("border-primary");
+          nav.classList.add("border-transparent");
+        });
+
+        // Add active class to clicked nav item
+        item.classList.add("active");
+        item.classList.add("border-primary");
+        item.classList.remove("border-transparent");
+
+        // Hide all sections
+        sections.forEach((section) => {
+          section.classList.add("hidden");
+        });
+
+        // Show the target section
+        const targetElement = document.getElementById(
+          `section-${targetSection}`,
+        );
+        if (targetElement) {
+          targetElement.classList.remove("hidden");
+        }
+      });
+    });
+  }
+
+  // Initialize on page load
+  document.addEventListener("DOMContentLoaded", initializeNavigation);
+
+  // Initialize on Astro page transitions
+  document.addEventListener("astro:page-load", initializeNavigation);
+
+  // Fallback: also initialize immediately if DOM is already ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeNavigation);
+  } else {
+    initializeNavigation();
+  }
+</script>

@@ -1,5 +1,6 @@
 ---
 import HorizontalCard from "./HorizontalCard.astro";
+import Card from "./Card.astro";
 export interface CardData {
   imageSrc: string;
   imageAlt: string;
@@ -11,6 +12,7 @@ export interface CardData {
 }
 
 interface Props {
+  objectType: string;
   title?: string;
   onViewAll?: string;
   children?: React.ReactNode;
@@ -18,7 +20,8 @@ interface Props {
   imageRatio?: "square" | "4:3" | "16:9" | "3:4" | "custom";
 }
 
-const { title, onViewAll, children, cards, imageRatio } = Astro.props;
+const { objectType, title, onViewAll, children, cards, imageRatio } =
+  Astro.props;
 ---
 
 <section class="py-8">
@@ -50,6 +53,7 @@ const { title, onViewAll, children, cards, imageRatio } = Astro.props;
             cards.map((card, index) => (
               <div class={""}>
                 <HorizontalCard
+                  objectType={objectType}
                   imageSrc={card.imageSrc}
                   imageAlt={card.imageAlt}
                   title={card.title}

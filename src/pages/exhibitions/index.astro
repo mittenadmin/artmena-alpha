@@ -158,16 +158,18 @@ const isAllView = false;
 
     {/* Upcoming Exhibitions */}
     <CardList
+      objectType="exhibitions"
       title="Upcoming Exhibitions"
-      onViewAll={"exhibitions/upcoming"}
+      onViewAll={"exhibitions/category/upcoming"}
       cards={upcomingExhibitions}
       maxRows={1}
     />
 
     {/* Past Exhibitions */}
     <CardList
+      objectType="exhibitions"
       title="Past Exhibitions"
-      onViewAll={"exhibitions/past"}
+      onViewAll={"exhibitions/category/past"}
       cards={pastExhibitions}
       maxRows={1}
     />

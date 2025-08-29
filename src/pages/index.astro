@@ -96,6 +96,7 @@ const newArticles = [
   <PhotoCarousel />
   {/* Featured Artworks Section */}
   <CardList
+    objectType="artwork"
     title="Featured Artwork"
     onViewAll={"artwork"}
     cards={featureArtwork}
@@ -104,6 +105,7 @@ const newArticles = [
 
   {/* Featured Exhibitions Section */}
   <HorizontalCardList
+    objectType="exhibitions"
     title="Upcoming Exhibitions"
     onViewAll={"exhibitions"}
     cards={upcomingExhibitions}
@@ -119,5 +121,10 @@ const newArticles = [
   />
 
   {/* news Section */}
-  <HorizontalCardList title="News" onViewAll={"news"} cards={newArticles} />
+  <HorizontalCardList
+    objectType="news"
+    title="News"
+    onViewAll={"news"}
+    cards={newArticles}
+  />
 </BaseLayout>

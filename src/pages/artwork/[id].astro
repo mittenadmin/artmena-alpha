@@ -4,12 +4,15 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import CardList from "../../components/Cards/CardList.astro";
 
-export interface ArtistData {
+export interface ArtworkData {
   id: string;
   name: string;
-  dob: string;
-  location: string;
-  bio: string;
+  artist: string;
+  date: string;
+  category: string;
+  medium: string;
+  dimensions: string;
+  price: string;
   imageSrc: string;
   imageAlt: string;
   artwork: {
@@ -18,33 +21,19 @@ export interface ArtistData {
     category: string;
     imageSrc: string;
     imageAlt: string;
+    price: string;
   }[];
-  exhibitions: {
-    upcoming: {
-      id: string;
-      title: string;
-      date: string;
-      location: string;
-      imageSrc: string;
-      imageAlt: string;
-    }[];
-    past: {
-      id: string;
-      title: string;
-      date: string;
-      location: string;
-      imageSrc: string;
-      imageAlt: string;
-    }[];
-  };
 }
 
-export const artist: ArtistData = {
+export const artwork: ArtworkData = {
   id: "artist-001",
-  name: "Marina Delacroix",
-  dob: "1985-03-15",
-  location: "Brooklyn, NY",
-  bio: "Marina Delacroix is a contemporary mixed-media artist known for her vibrant explorations of urban landscapes and human connection. Drawing inspiration from street art, traditional painting, and digital media, her work bridges the gap between classical techniques and modern expression. She holds an MFA from Parsons School of Design and has been featured in galleries across New York, Los Angeles, and internationally.",
+  name: "Paint on Canvas",
+  artist: "Marina Delacroix",
+  date: "October 2020",
+  category: "Abstract",
+  medium: "Canvas",
+  dimensions: "150cm x 200cm",
+  price: "$1000.00",
   imageSrc:
     "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
   imageAlt:
@@ -58,6 +47,7 @@ export const artist: ArtistData = {
         "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800&fit=crop",
       imageAlt:
         "Abstract mixed media artwork featuring vibrant colors and urban textures",
+      price: "$350.00",
     },
     {
       id: "artwork-002",
@@ -67,6 +57,7 @@ export const artist: ArtistData = {
         "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
       imageAlt:
         "Oil painting with various shades of blue depicting water reflections",
+      price: "$350.00",
     },
     {
       id: "artwork-003",
@@ -75,6 +66,7 @@ export const artist: ArtistData = {
       imageSrc:
         "https://images.unsplash.com/photo-1549490349-8643362247b5?w=600&h=800&fit=crop",
       imageAlt: "Digital artwork with geometric patterns and neon colors",
+      price: "$350.00",
     },
     {
       id: "artwork-004",
@@ -84,6 +76,7 @@ export const artist: ArtistData = {
         "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
       imageAlt:
         "Acrylic painting capturing the energy and movement of city life",
+      price: "$350.00",
     },
     {
       id: "artwork-005",
@@ -93,105 +86,70 @@ export const artist: ArtistData = {
         "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
       imageAlt:
         "Contemporary sculpture exploring themes of transformation and growth",
+      price: "$350.00",
     },
   ],
-  exhibitions: {
-    upcoming: [
-      {
-        id: "exhibition-001",
-        title: "Chromatic Visions: New Works",
-        date: "2025-09-15",
-        location: "Gallery 42, SoHo",
-        imageSrc:
-          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
-        imageAlt:
-          "Gallery space with white walls displaying colorful contemporary artworks",
-      },
-      {
-        id: "exhibition-002",
-        title: "Collective Consciousness",
-        date: "2025-11-03",
-        location: "Brooklyn Art Center",
-        imageSrc:
-          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
-        imageAlt:
-          "Group exhibition space with various contemporary art installations",
-      },
-    ],
-    past: [
-      {
-        id: "exhibition-003",
-        title: "Urban Landscapes",
-        date: "2025-03-20",
-        location: "Modern Arts Museum",
-        imageSrc:
-          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
-        imageAlt:
-          "Museum exhibition featuring urban-themed contemporary artworks",
-      },
-      {
-        id: "exhibition-004",
-        title: "Emerging Voices",
-        date: "2024-11-12",
-        location: "Chelsea Gallery District",
-        imageSrc:
-          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
-        imageAlt: "Gallery opening with people viewing contemporary art pieces",
-      },
-      {
-        id: "exhibition-005",
-        title: "Digital Renaissance",
-        date: "2024-08-05",
-        location: "TechArt Space",
-        imageSrc:
-          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
-        imageAlt: "Modern gallery space showcasing digital art installations",
-      },
-      {
-        id: "exhibition-006",
-        title: "First Solo Show",
-        date: "2024-05-18",
-        location: "Williamsburg Art Gallery",
-        imageSrc:
-          "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop",
-        imageAlt:
-          "Intimate gallery space featuring Marina's debut solo exhibition",
-      },
-    ],
-  },
 };
 export async function getStaticPaths() {
   return [{ params: { id: "1" } }, { params: { id: "1" } }];
 }
 ---
 
-<BaseLayout title={`${artist.name} - Artist Profile`}>
+<BaseLayout title={`artmena/ ${artwork.name}`}>
   <div class="min-h-screen">
-    <PageHero subtitle={"meet"} title={artist.name} />
+    <PageHero subtitle={"Insights On"} title={artwork.name} />
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex justify-center">
-        <div class="flex w-full md:w-3/4">
-          {/* Image Section */}
-          <div class={`w-1/2 aspect-[3/4]`}>
-            <img
-              src={artist.imageSrc}
-              alt={artist.imageAlt}
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <div class="w-full py-4 pl-12">
-            <h1>{artist.name}</h1>
-            <p>{artist.location} - B. {artist.dob}</p>
-            <p class="mt-4 !text-primary">{artist.bio}</p>
-          </div>
+        {/* Image Section */}
+        <div class={`w-1/2 me-auto grid grid-cols-3 gap-4 gap-x-8`}>
+          <img
+            src={artwork.imageSrc}
+            alt={artwork.imageAlt}
+            class="w-full aspect-[6/5] object-cover col-span-3 row-span-1"
+          />
+          <img
+            src={artwork.imageSrc}
+            alt={artwork.imageAlt}
+            class="aspect-[6/5] object-cover"
+          />
+          <img
+            src={artwork.imageSrc}
+            alt={artwork.imageAlt}
+            class="aspect-[6/5] object-cover"
+          />
+          <img
+            src={artwork.imageSrc}
+            alt={artwork.imageAlt}
+            class="aspect-[6/5] object-cover"
+          />
         </div>
-        <div class="flex flex-col w-full md:w-1/4 px-8 pt-12">
-          <h2>Represented By</h2>
-          <h2>Gallery 1</h2>
-          <h2>Gallery 2</h2>
+        <div class="py-4 pl-12 w-1/2">
+          <h1>{artwork.name}</h1>
+          <h1>{artwork.artist}</h1>
+          <div>
+            <h2>Medium</h2>
+            <h2>{artwork.medium}</h2>
+          </div>
+          <div>
+            <h2>Dimensions</h2>
+            <h2>{artwork.dimensions}</h2>
+          </div>
+          <div>
+            <h2>Date</h2>
+            <h2>{artwork.date}</h2>
+          </div>
+          <div>
+            <h2>Further Info</h2>
+            <h2>{artwork.name}</h2>
+          </div>
+          <div>
+            <h2>Price</h2>
+            <h2>{artwork.price}</h2>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="border-t border-b border-primary">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex">
         {/* mini nav bar*/}
@@ -200,7 +158,7 @@ export async function getStaticPaths() {
           data-section="artworks"
           class="w-1/4 border-b-2 border-primary hover:border-primary mr-8 py-4 cursor-pointer nav-item active ps-2"
         >
-          Artworks
+          More From This Artist
         </div>
         <div
           id="nav-exhibitions"
@@ -213,27 +171,11 @@ export async function getStaticPaths() {
     </div>
     {/* Artworks section */}
     <div id="section-artworks" class="section-content">
-      <CardList objectType="artwork" cards={artist.artwork} />
+      <CardList objectType="artwork" cards={artwork.artwork} maxRows={1} />
     </div>
 
     {/* Exhibitions section */}
-    <div id="section-exhibitions" class="section-content hidden">
-      {/* Upcoming Exhibitions */}
-      <CardList
-        objectType="exhibitions"
-        title="Upcoming Exhibitions"
-        cards={artist.exhibitions.upcoming}
-        maxRows={1}
-      />
-
-      {/* Past Exhibitions */}
-      <CardList
-        objectType="exhibitions"
-        title="Past Exhibitions"
-        cards={artist.exhibitions.upcoming}
-        maxRows={1}
-      />
-    </div>
+    <div id="section-exhibitions" class="section-content hidden"></div>
   </div>
 </BaseLayout>
 

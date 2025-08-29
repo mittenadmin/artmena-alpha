@@ -1,9 +1,9 @@
 ---
-import "../styles/index.css";
+import "../../styles/index.css";
 
-import PageHero from "../components/PageHero.astro";
-import CardList from "../components/Cards/CardList.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import CardList from "../../components/Cards/CardList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export interface CardData {
   imageSrc: string;
@@ -129,14 +129,12 @@ const galleries: CardData[] = [
     text1: "Abu Dhabi, UAE",
   },
 ];
-
-const isAllView = false;
 ---
 
 <BaseLayout title="artmena/galleries" description="artmena">
   <div class="min-h-screen">
     <PageHero title="Galleries" />
 
-    <CardList cards={galleries} imageRatio={"square"} />
+    <CardList objectType="galleries" cards={galleries} imageRatio={"square"} />
   </div>
 </BaseLayout>

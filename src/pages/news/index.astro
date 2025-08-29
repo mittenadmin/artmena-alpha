@@ -1,10 +1,10 @@
 ---
-import "../styles/index.css";
+import "../../styles/index.css";
 
-import PageHero from "../components/PageHero.astro";
-import CardList from "../components/Cards/CardList.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCardList from "../components/Cards/HorizontalCardList.astro";
+import PageHero from "../../components/PageHero.astro";
+import CardList from "../../components/Cards/CardList.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HorizontalCardList from "../../components/Cards/HorizontalCardList.astro";
 
 export interface CardData {
   imageSrc: string;
@@ -104,6 +104,6 @@ const news: CardData[] = [
   <div class="min-h-screen">
     <PageHero title="News" />
 
-    <HorizontalCardList cards={news} />
+    <HorizontalCardList objectType="news" cards={news} />
   </div>
 </BaseLayout>

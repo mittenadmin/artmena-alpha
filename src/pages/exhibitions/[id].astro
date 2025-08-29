@@ -1,0 +1,176 @@
+---
+import "../../styles/index.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import CardList from "../../components/Cards/CardList.astro";
+
+export interface ExhibitionData {
+  id: string;
+  name: string;
+  location: string;
+  country: string;
+  date: string;
+  time: string;
+  imageSrc: string;
+  imageAlt: string;
+  curators: string[];
+  press: {
+    title: string;
+    author: string;
+    date: string;
+    body: string;
+    imageSrc: string;
+    imageAlt: string;
+  };
+  artwork: {
+    id: string;
+    title: string;
+    category: string;
+    artist: string;
+    imageSrc: string;
+    imageAlt: string;
+  }[];
+}
+
+export const exhibition: ExhibitionData = {
+  id: "ex001",
+  name: "Fractured Light: Contemporary Perspectives",
+  location: "Museum of Modern Art",
+  country: "United States",
+  date: "15 April, 2024 -- 20 April, 2024",
+  time: "1:00 pm - 8:00 pm",
+  imageSrc:
+    "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&hue=180",
+  imageAlt:
+    "Gallery space with dramatic lighting installations casting colorful shadows",
+  curators: ["Dr. Sarah Chen", "Marcus Rodriguez"],
+  press: {
+    title: "A Brilliant Exploration of Light and Shadow",
+    author: "Jennifer Walsh",
+    date: "2024-03-20",
+    body: `
+      This ambitious exhibition transforms the MoMA galleries into a luminous playground where contemporary artists reimagine our relationship with light. The carefully curated collection challenges visitors to consider how illumination shapes not only what we see, but how we perceive the world around us. Each installation invites contemplation of light's dual nature as both physical phenomenon and metaphorical force, creating an immersive environment that shifts and evolves throughout the day.
+      The featured artists employ diverse mediums to explore light's transformative power, from large-scale installations that flood entire rooms with color to intimate photographic works that capture fleeting moments of radiance. Elena Vasquez's "Spectrum Cascade" serves as the exhibition's centerpiece, where thousands of fiber optic strands create a waterfall of shifting hues that responds to visitors' movements. Meanwhile, James Liu's "Refraction Series" documents the precise moment when ordinary objects become extraordinary through careful manipulation of natural light.
+      Central to the exhibition's philosophy is the idea that light exists in constant dialogue with shadow, neither complete without the other. Amara Johnson's interactive sculptures demonstrate this principle beautifully, casting ever-changing shadows that become artworks in their own right. The interplay between presence and absence, visibility and concealment, creates moments of revelation that feel both surprising and inevitable.`,
+    imageSrc:
+      "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&hue=180",
+    imageAlt: "Visitors silhouetted against a large light installation",
+  },
+  artwork: [
+    {
+      id: "art001",
+      title: "Spectrum Cascade",
+      category: "Installation",
+      artist: "Elena Vasquez",
+      imageSrc:
+        "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&hue=180",
+      imageAlt: "Large-scale installation with cascading colored lights",
+    },
+    {
+      id: "art002",
+      title: "Refraction Series #7",
+      category: "Photography",
+      artist: "James Liu",
+      imageSrc:
+        "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&hue=180",
+      imageAlt:
+        "Abstract photograph showing light bending through glass prisms",
+    },
+    {
+      id: "art003",
+      title: "Shadow Play",
+      category: "Sculpture",
+      artist: "Amara Johnson",
+      imageSrc:
+        "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=400&h=400&fit=crop&hue=180",
+      imageAlt:
+        "Interactive sculpture casting dynamic shadows on gallery walls",
+    },
+  ],
+};
+export async function getStaticPaths() {
+  return [{ params: { id: "1" } }, { params: { id: "1" } }];
+}
+---
+
+<BaseLayout title={`artmena/ ${exhibition.name}`}>
+  <div class="min-h-screen">
+    <PageHero subtitle={exhibition.date} title={exhibition.name} />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex justify-center">
+        <div
+          class="flex flex-col w-full md:w-3/4 justify-between bg-secondary-light p-8"
+        >
+          <div class="w-full py-4 grid grid-cols-2 grid-rows-3 gap-8">
+            <div>
+              <h2>Place</h2>
+              <h3>{exhibition.location}</h3>
+              <h3>{exhibition.country}</h3>
+            </div>
+            <div>
+              <h2>Date</h2>
+              <h3>{exhibition.date}</h3>
+              <h3>{exhibition.time}</h3>
+            </div>
+            <div class="span-rows-2">
+              <h2>Artists</h2>
+              {exhibition.artwork.map((art) => <h3>{art.artist}</h3>)}
+            </div>
+            <div class="span-rows-2">
+              <h2>Curators</h2>{
+                exhibition.curators.map((curator) => <h3>{curator}</h3>)
+              }
+            </div>
+          </div>
+          <div>
+            <h1>{exhibition.name}</h1>
+          </div>
+        </div>
+        {/* Image Section */}
+        <div class={`w-1/2 aspect-square]`}>
+          <img
+            src={exhibition.imageSrc}
+            alt={exhibition.imageAlt}
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* press release */}
+      <div class="mt-8 flex flex-col gap-2">
+        <h2>Press Release</h2>
+        <h1>{exhibition.press.title}</h1>
+        <h2>By {exhibition.press.author} {exhibition.press.date}</h2>
+        <div class="border-t border-primary py-8 flex">
+          <p>{exhibition.press.body}</p>
+          <img
+            src={exhibition.press.imageSrc}
+            alt={exhibition.press.imageAlt}
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+    {/* mini nav bar*/}
+    <div class="border-t border-b border-primary">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex">
+        <div
+          id="nav-artworks"
+          data-section="artworks"
+          class="w-1/4 border-b-2 border-primary hover:border-primary mr-8 py-4 cursor-pointer nav-item active ps-2"
+        >
+          Selected Artworks
+        </div>
+      </div>
+    </div>
+
+    {/* Artworks section */}
+    <div id="section-artworks" class="section-content">
+      <CardList
+        objectType="artwork"
+        cards={exhibition.artwork}
+        cardsPerRow={2}
+      />
+    </div>
+  </div>
+</BaseLayout>

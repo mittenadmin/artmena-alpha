@@ -1,6 +1,7 @@
 ---
 import { fade, slide } from "astro:transitions";
 export interface Props {
+  objectType: string;
   imageSrc: string;
   imageAlt: string;
   preText?: string;
@@ -9,11 +10,11 @@ export interface Props {
   text2?: string;
   imageRatio?: "square" | "4:3" | "16:9" | "3:4" | "custom";
   customRatio?: string; // For custom aspect ratios like "aspect-[5/3]"
-  onclick?: string;
   className?: string;
 }
 
 const {
+  objectType,
   imageSrc,
   imageAlt,
   preText,
@@ -22,7 +23,6 @@ const {
   text2,
   imageRatio = "4:3",
   customRatio,
-  onclick,
   className = "",
 } = Astro.props;
 
@@ -48,22 +48,28 @@ const getRatioClass = () => {
 <div
   class={`overflow-hidden cursor-pointer border-b border-transparent hover:border-primary transition-colors ${className}`}
 >
-  {/* Image */}
-  <div class={`w-full ${getRatioClass()} overflow-hidden`}>
-    <img src={imageSrc} alt={imageAlt} class="w-full h-full object-cover" />
-  </div>
-  {/* Content */}
-  <div class="pt-2">
-    {/* PreText */}
-    {preText && <p class="text-secondary text-sm leading-relaxed">{preText}</p>}
+  <a href=`/${objectType}/1`>
+    {/* Image */}
+    <div class={`w-full ${getRatioClass()} overflow-hidden`}>
+      <img src={imageSrc} alt={imageAlt} class="w-full h-full object-cover" />
+    </div>
+    {/* Content */}
+    <div class="pt-2">
+      {/* PreText */}
+      {
+        preText && (
+          <p class="text-secondary text-sm leading-relaxed">{preText}</p>
+        )
+      }
 
-    {/* Title */}
-    <h3 class="text-lg font-bold text-primary mb-1">{title}</h3>
+      {/* Title */}
+      <h3 class="text-lg font-bold text-primary mb-1">{title}</h3>
 
-    {/* Text Field 1 */}
-    {text1 && <p class="text-secondary text-sm leading-relaxed">{text1}</p>}
+      {/* Text Field 1 */}
+      {text1 && <p class="text-secondary text-sm leading-relaxed">{text1}</p>}
 
-    {/* Text Field 2 */}
-    {text2 && <p class="text-secondary text-sm leading-relaxed">{text2}</p>}
-  </div>
+      {/* Text Field 2 */}
+      {text2 && <p class="text-secondary text-sm leading-relaxed">{text2}</p>}
+    </div>
+  </a>
 </div>

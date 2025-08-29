@@ -1,0 +1,118 @@
+---
+import "../../styles/index.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import CardList from "../../components/Cards/CardList.astro";
+
+export async function getStaticPaths() {
+  return [{ params: { id: "1" } }, { params: { id: "1" } }];
+}
+
+const article = {
+  title: "Article",
+  author: "Johnson",
+  category: "Gallery",
+  date: "12 Jun, 1996",
+  imageSrc:
+    "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
+  imageAlt:
+    "Portrait of Marina Delacroix, a woman with dark hair wearing a paint-splattered apron in her studio",
+};
+
+const sampleArticle = `
+<article class="news-article">
+  
+
+  
+  <div class="article-content">
+    <p class="lead">Scientists at the Global AI Research Institute have announced a groundbreaking discovery that could revolutionize how artificial intelligence systems process and understand complex scientific data, potentially accelerating research across multiple disciplines by decades.</p>
+    
+    <p>The new methodology, dubbed "Quantum-Enhanced Neural Processing" (QENP), combines quantum computing principles with advanced neural network architectures to create AI systems capable of processing vast amounts of scientific data with unprecedented accuracy and speed.</p>
+    
+    <p>"This is the most significant advancement in AI-assisted research since the development of machine learning itself," said Dr. Sarah Johnson, lead researcher on the project. "We're seeing processing speeds that are 1000 times faster than current systems, with accuracy rates approaching 99.7%."</p>
+      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjZjNmNGY2Ii8+CjxjaXJjbGUgY3g9IjQwMCIgY3k9IjIwMCIgcj0iNjAiIGZpbGw9IiM2MzY2ZjEiLz4KPHN2ZyB4PSIzNzAiIHk9IjE3MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0yMCAxMGMwLTUuNTIzIDQuNDc3LTEwIDEwLTEwczEwIDQuNDc3IDEwIDEwdjIwYzAgNS41MjMtNC40NzcgMTAtMTAgMTBzLTEwLTQuNDc3LTEwLTEwVjEweiIvPgo8cGF0aCBkPSJNMTAgMjBjLTUuNTIzIDAtMTAgNC40NzctMTAgMTBzNC40NzcgMTAgMTAgMTBoMjBjNS41MjMgMCAxMC00LjQ3NyAxMC0xMHMtNC40NzctMTAtMTAtMTBIMTB6Ii8+Cjwvc3ZnPgo8dGV4dCB4PSI0MDAiIHk9IjMwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzM3NDE1MSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2Ij5BSSBSZXNlYXJjaCBCcmVha3Rocm91Z2g8L3RleHQ+Cjwvc3ZnPg==" 
+       alt="AI Research Breakthrough" 
+       class="article-image" />
+    <blockquote>
+      "The implications for scientific discovery are staggering. What used to take years of research can now be accomplished in weeks."
+      <cite>— Dr. Michael Chen, Director of Computational Sciences</cite>
+    </blockquote>
+    
+    <p>The research team tested their system on several complex problems, including protein folding prediction, climate modeling, and drug discovery. In each case, the AI system not only matched but exceeded the performance of traditional research methods.</p>
+    
+    <p>The breakthrough has already attracted attention from major pharmaceutical companies and research institutions worldwide, with early partnerships being announced for cancer research and renewable energy development.</p>
+    
+    <p>While the technology is still in its early stages, researchers expect commercial applications to begin appearing within the next two years, potentially transforming industries from healthcare to environmental science.</p>
+  </div>
+  
+  <footer class="article-footer">
+    <div class="tags">
+      <span class="tag">Artificial Intelligence</span>
+      <span class="tag">Quantum Computing</span>
+      <span class="tag">Scientific Research</span>
+    </div>
+    <div class="sharing">
+      <button>Share</button>
+      <button>Save</button>
+    </div>
+  </footer>
+</article>
+`;
+---
+
+<BaseLayout title={`artmena/ ${article.title}`}>
+  <div class="min-h-screen">
+    <PageHero subtitle={article.category} title={article.title} />
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col">
+        <img
+          src={article.imageSrc}
+          alt={article.imageAlt}
+          class="w-full aspect-[5/3] object-cover"
+        />
+        <h3>{article.category}</h3>
+        <h1>{article.title}</h1>
+        <h3>By {article.author} {article.date}</h3>
+        <div class="border-t border-primary mt-4" set:html={sampleArticle} />
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navItems = document.querySelectorAll(".nav-item");
+    const sections = document.querySelectorAll(".section-content");
+
+    navItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const targetSection = (item as HTMLElement).dataset.section;
+
+        // Remove active class from all nav items
+        navItems.forEach((nav) => {
+          nav.classList.remove("active");
+          nav.classList.remove("border-primary");
+          nav.classList.add("border-transparent");
+        });
+
+        // Add active class to clicked nav item
+        item.classList.add("active");
+        item.classList.add("border-primary");
+        item.classList.remove("border-transparent");
+
+        // Hide all sections
+        sections.forEach((section) => {
+          section.classList.add("hidden");
+        });
+
+        // Show the target section
+        const targetElement = document.getElementById(
+          `section-${targetSection}`,
+        );
+        if (targetElement) {
+          targetElement.classList.remove("hidden");
+        }
+      });
+    });
+  });
+</script>
