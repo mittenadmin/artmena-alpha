@@ -4,31 +4,45 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import CardList from "../../components/Cards/CardList.astro";
 import { newsArticles } from "../../data/news";
+import { loadHtmlContent } from "../../utils/htmlContent";
 
 export async function getStaticPaths() {
-  return newsArticles.map(article => ({
+  return newsArticles.map((article) => ({
     params: { id: article.id },
-    props: { article }
+    props: { article },
   }));
 }
 
 const { article } = Astro.props;
+
+// Load HTML content if htmlFile is specified, otherwise use content property
+const articleContent = article.htmlFile
+  ? loadHtmlContent(article.htmlFile)
+  : article.content;
 ---
 
 <BaseLayout title={`artmena / ${article.title}`}>
   <div class="min-h-screen">
-    <PageHero subtitle={article.category} title={article.title} />
+    <PageHero
+      subtitle={article.category}
+      title={article.title}
+      largeText={true}
+    />
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex flex-col">
         <img
           src={article.imageUrl}
           alt={article.title}
           class="w-full aspect-[5/3] object-cover"
+          transition:name=`image-${article.id}`
         />
         <h3>{article.category}</h3>
         <h1>{article.title}</h1>
         <h3>By {article.author} · {article.date}</h3>
-        <div class="border-t border-primary mt-4" set:html={article.content} />
+        <div
+          class="border-t border-primary mt-4 article-content"
+          set:html={articleContent}
+        />
       </div>
     </div>
   </div>

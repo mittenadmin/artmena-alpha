@@ -3,9 +3,10 @@ import { ClientRouter, slide } from "astro:transitions";
 export interface Props {
   subtitle?: string;
   title: string;
+  largeText?: boolean;
 }
 
-const { subtitle = "Explore", title } = Astro.props;
+const { subtitle = "Explore", title, largeText = false } = Astro.props;
 ---
 
 <section class="relative h-32 border-b border-primary">
@@ -16,7 +17,7 @@ const { subtitle = "Explore", title } = Astro.props;
     <h3 transition:name={subtitle} class="uppercase">
       {subtitle}
     </h3>
-    <h1 class="text-5xl font-bold" transition:name={title}>
+    <h1 class={`${largeText ? 'text-4xl' : 'text-5xl'} font-bold`} transition:name={title}>
       {title}
     </h1>
   </div>

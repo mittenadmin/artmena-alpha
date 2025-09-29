@@ -64,4 +64,5 @@ export interface NewsArticle {
   content: string;
   imageUrl: string;
   tags: string[];
+  htmlFile?: string; // Optional path to HTML file relative to public folder
 }

@@ -17,7 +17,7 @@
 /* Or set a default for ALL transitions */
 ::view-transition-old(*),
 ::view-transition-new(*) {
-  animation-duration: 0.5s;
+  animation-duration: 0.2s;
 }
 /* Set default font for the entire site */
 html {
@@ -142,4 +142,105 @@ p {
   .grid-max-rows-5 > *:nth-child(n + 21) {
     display: none;
   }
+}
+
+/* Article content styles - overrides for Google Docs HTML */
+.article-content {
+  /* Base typography */
+  line-height: 1.7;
+  color: var(--color-secondary);
+}
+
+.article-content .article-paragraph {
+  margin-bottom: 1.25rem;
+  color: var(--color-secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.article-content .article-h1 {
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  color: var(--color-primary);
+  margin: 2rem 0 1rem 0;
+  text-transform: none;
+}
+
+.article-content .article-h2 {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin: 1.75rem 0 0.75rem 0;
+}
+
+.article-content .article-h3 {
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+.article-content .article-image {
+  width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.article-content .article-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.article-content .article-link:hover {
+  opacity: 0.7;
+}
+
+/* Override any Google Docs specific styles */
+.article-content p {
+  margin: 0 0 1.25rem 0 !important;
+  padding: 0 !important;
+  font-family: "Bricolage Grotesque", sans-serif !important;
+  color: var(--color-secondary) !important;
+  font-size: 1rem !important;
+  line-height: 1.7 !important;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3 {
+  font-family: "Manrope", sans-serif !important;
+  color: var(--color-primary) !important;
+}
+
+.article-content img {
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 1.5rem 0 !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Clean up any leftover Google Docs elements */
+.article-content span {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+}
+
+.article-content em,
+.article-content i {
+  font-style: italic;
+  color: var(--color-secondary);
+}
+
+.article-content strong,
+.article-content b {
+  font-weight: 600;
+  color: var(--color-primary);
 }

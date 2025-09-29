@@ -8,7 +8,7 @@ import HorizontalCardList from "../../components/Cards/HorizontalCardList.astro"
 import { newsArticles } from "../../data/news";
 
 // Transform news articles for HorizontalCardList component
-const newsCards = newsArticles.map(article => ({
+const newsCards = newsArticles.map((article) => ({
   id: article.id,
   imageSrc: article.imageUrl,
   imageAlt: article.title,
@@ -16,7 +16,7 @@ const newsCards = newsArticles.map(article => ({
   title: article.title,
   description: article.excerpt,
   text1: article.date,
-  text2: `By ${article.author}`
+  text2: `By ${article.author}`,
 }));
 ---
 
@@ -24,6 +24,6 @@ const newsCards = newsArticles.map(article => ({
   <div class="min-h-screen">
     <PageHero title="News" />
 
-    <HorizontalCardList objectType="news" cards={newsCards} />
+    <HorizontalCardList objectType="news" cards={newsCards} imageRatio="4:3" />
   </div>
 </BaseLayout>
