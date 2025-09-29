@@ -2,6 +2,7 @@
 import HorizontalCard from "./HorizontalCard.astro";
 import Card from "./Card.astro";
 export interface CardData {
+  id?: string;
   imageSrc: string;
   imageAlt: string;
   preText?: string;
@@ -53,6 +54,7 @@ const { objectType, title, onViewAll, children, cards, imageRatio } =
             cards.map((card, index) => (
               <div class={""}>
                 <HorizontalCard
+                  id={card.id}
                   objectType={objectType}
                   imageSrc={card.imageSrc}
                   imageAlt={card.imageAlt}

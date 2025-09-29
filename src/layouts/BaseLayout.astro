@@ -41,7 +41,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <body>
     <Header />
 
-    <main id="main-content" transition:animate={fade({ duration: " 0.4s" })}>
+    <!--<main id="main-content" transition:animate={fade({ duration: "0.6s" })}>-->
+    <!--  <slot />-->
+    <!--</main>-->
+    <main id="main-content">
       <slot />
     </main>
 

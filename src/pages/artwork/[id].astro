@@ -3,148 +3,126 @@ import "../../styles/index.css";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/PageHero.astro";
 import CardList from "../../components/Cards/CardList.astro";
+import { artworks } from "../../data/artworks";
+import { artists } from "../../data/artists";
+import { galleries } from "../../data/galleries";
+import { exhibitions } from "../../data/exhibitions";
 
-export interface ArtworkData {
-  id: string;
-  name: string;
-  artist: string;
-  date: string;
-  category: string;
-  medium: string;
-  dimensions: string;
-  price: string;
-  imageSrc: string;
-  imageAlt: string;
-  artwork: {
-    id: string;
-    title: string;
-    category: string;
-    imageSrc: string;
-    imageAlt: string;
-    price: string;
-  }[];
-}
-
-export const artwork: ArtworkData = {
-  id: "artist-001",
-  name: "Paint on Canvas",
-  artist: "Marina Delacroix",
-  date: "October 2020",
-  category: "Abstract",
-  medium: "Canvas",
-  dimensions: "150cm x 200cm",
-  price: "$1000.00",
-  imageSrc:
-    "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
-  imageAlt:
-    "Portrait of Marina Delacroix, a woman with dark hair wearing a paint-splattered apron in her studio",
-  artwork: [
-    {
-      id: "artwork-001",
-      title: "Urban Symphony",
-      category: "Mixed Media",
-      imageSrc:
-        "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=600&h=800&fit=crop",
-      imageAlt:
-        "Abstract mixed media artwork featuring vibrant colors and urban textures",
-      price: "$350.00",
-    },
-    {
-      id: "artwork-002",
-      title: "Reflections in Blue",
-      category: "Oil Painting",
-      imageSrc:
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
-      imageAlt:
-        "Oil painting with various shades of blue depicting water reflections",
-      price: "$350.00",
-    },
-    {
-      id: "artwork-003",
-      title: "Digital Dreams",
-      category: "Digital Art",
-      imageSrc:
-        "https://images.unsplash.com/photo-1549490349-8643362247b5?w=600&h=800&fit=crop",
-      imageAlt: "Digital artwork with geometric patterns and neon colors",
-      price: "$350.00",
-    },
-    {
-      id: "artwork-004",
-      title: "City Pulse",
-      category: "Acrylic",
-      imageSrc:
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
-      imageAlt:
-        "Acrylic painting capturing the energy and movement of city life",
-      price: "$350.00",
-    },
-    {
-      id: "artwork-005",
-      title: "Metamorphosis",
-      category: "Sculpture",
-      imageSrc:
-        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=800&fit=crop",
-      imageAlt:
-        "Contemporary sculpture exploring themes of transformation and growth",
-      price: "$350.00",
-    },
-  ],
-};
 export async function getStaticPaths() {
-  return [{ params: { id: "1" } }, { params: { id: "1" } }];
+  return artworks.map((artwork) => ({
+    params: { id: artwork.id },
+    props: { artwork },
+  }));
 }
+
+const { artwork } = Astro.props;
+
+// Get the artist for this artwork
+const artist = artists.find((a) => a.id === artwork.artist_id)!;
+
+// Get the gallery if any
+const gallery = artwork.gallery_id
+  ? galleries.find((g) => g.id === artwork.gallery_id)
+  : null;
+
+// Get other artworks by the same artist (excluding current artwork)
+const moreFromArtist = artworks
+  .filter((a) => a.artist_id === artwork.artist_id && a.id !== artwork.id)
+  .slice(0, 4)
+  .map((a) => ({
+    id: a.id,
+    title: a.title,
+    category: a.category,
+    imageSrc: a.imageUrl,
+    imageAlt: a.title,
+    price: a.price,
+  }));
+
+// Get exhibitions featuring this artwork
+const artworkExhibitions = exhibitions
+  .filter((ex) => ex.artwork_ids.includes(artwork.id))
+  .map((ex) => {
+    const exhibitionGallery = galleries.find((g) => g.id === ex.gallery_id);
+    return {
+      id: ex.id,
+      title: ex.title,
+      date: `${ex.startDate} - ${ex.endDate}`,
+      location: exhibitionGallery
+        ? `${exhibitionGallery.name}, ${exhibitionGallery.location}`
+        : "",
+      imageSrc: ex.imageUrl,
+      imageAlt: ex.title,
+    };
+  });
 ---
 
-<BaseLayout title={`artmena/ ${artwork.name}`}>
+<BaseLayout title={`artmena / ${artwork.title}`}>
   <div class="min-h-screen">
-    <PageHero subtitle={"Insights On"} title={artwork.name} />
+    <PageHero subtitle={"Insights On"} title={artwork.title} />
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex justify-center">
         {/* Image Section */}
         <div class={`w-1/2 me-auto grid grid-cols-3 gap-4 gap-x-8`}>
           <img
-            src={artwork.imageSrc}
-            alt={artwork.imageAlt}
+            src={artwork.imageUrl}
+            alt={artwork.title}
             class="w-full aspect-[6/5] object-cover col-span-3 row-span-1"
+            transition:name=`image-${artwork.id}`
           />
           <img
-            src={artwork.imageSrc}
-            alt={artwork.imageAlt}
-            class="aspect-[6/5] object-cover"
+            src={artwork.imageUrl}
+            alt={artwork.title}
+            class="aspect-[6/5] object-cover hidden"
           />
           <img
-            src={artwork.imageSrc}
-            alt={artwork.imageAlt}
-            class="aspect-[6/5] object-cover"
+            src={artwork.imageUrl}
+            alt={artwork.title}
+            class="aspect-[6/5] object-cover hidden"
           />
           <img
-            src={artwork.imageSrc}
-            alt={artwork.imageAlt}
-            class="aspect-[6/5] object-cover"
+            src={artwork.imageUrl}
+            alt={artwork.title}
+            class="aspect-[6/5] object-cover hidden"
           />
         </div>
         <div class="py-4 pl-12 w-1/2">
-          <h1>{artwork.name}</h1>
-          <h1>{artwork.artist}</h1>
-          <div>
-            <h2>Medium</h2>
+          <a href={`/artists/${artist.id}`} class="!hover:text-primary-light">
+            <h1 class="!text-secondary !normal-case">Artist</h1>
+            <h1>{artist.name}</h1>
+          </a>
+          <div class="mt-6">
+            <h2 class="!text-secondary">Medium</h2>
             <h2>{artwork.medium}</h2>
           </div>
-          <div>
-            <h2>Dimensions</h2>
+          <div class="mt-2">
+            <h2 class="!text-secondary">Dimensions</h2>
             <h2>{artwork.dimensions}</h2>
           </div>
-          <div>
-            <h2>Date</h2>
-            <h2>{artwork.date}</h2>
+          <div class="mt-2">
+            <h2 class="!text-secondary">Year</h2>
+            <h2>{artwork.year}</h2>
           </div>
-          <div>
-            <h2>Further Info</h2>
-            <h2>{artwork.name}</h2>
+          <div class="mt-2">
+            <h2 class="!text-secondary">Description</h2>
+            <p class="text-secondary">{artwork.description}</p>
           </div>
-          <div>
-            <h2>Price</h2>
+          {
+            gallery && (
+              <div class="mt-2">
+                <h2 class="!text-secondary">Gallery</h2>
+                <a href={`/galleries/${gallery.id}`} class="hover:text-primary">
+                  <h3>{gallery.name}</h3>
+                </a>
+              </div>
+            )
+          }
+          <div class="mt-2">
+            <h2 class="!text-secondary">Price</h2>
             <h2>{artwork.price}</h2>
+          </div>
+          <div class="mt-2">
+            <h2 class="!text-secondary">Status</h2>
+            <h2 class="capitalize">{artwork.status}</h2>
           </div>
         </div>
       </div>
@@ -169,13 +147,35 @@ export async function getStaticPaths() {
         </div>
       </div>
     </div>
-    {/* Artworks section */}
-    <div id="section-artworks" class="section-content">
-      <CardList objectType="artwork" cards={artwork.artwork} maxRows={1} />
-    </div>
+    <div>
+      {/* Artworks section */}
+      <div
+        id="section-artworks"
+        class="section-content transition-opacity duration-200 ease-in-out opacity-100 block"
+      >
+        {
+          moreFromArtist.length > 0 && (
+            <CardList objectType="artwork" cards={moreFromArtist} maxRows={1} />
+          )
+        }
+      </div>
 
-    {/* Exhibitions section */}
-    <div id="section-exhibitions" class="section-content hidden"></div>
+      {/* Exhibitions section */}
+      <div
+        id="section-exhibitions"
+        class="section-content transition-opacity duration-200 ease-in-out opacity-0 hidden"
+      >
+        {
+          artworkExhibitions.length > 0 && (
+            <CardList
+              objectType="exhibitions"
+              cards={artworkExhibitions}
+              maxRows={1}
+            />
+          )
+        }
+      </div>
+    </div>
   </div>
 </BaseLayout>
 
@@ -184,57 +184,64 @@ export async function getStaticPaths() {
     const navItems = document.querySelectorAll(".nav-item");
     const sections = document.querySelectorAll(".section-content");
 
-    // Remove any existing event listeners to prevent duplicates
     navItems.forEach((item) => {
-      const newItem = item.cloneNode(true);
-      item.parentNode?.replaceChild(newItem, item);
+      item.addEventListener("click", handleNavClick);
     });
 
-    // Get the updated node list after cloning
-    const updatedNavItems = document.querySelectorAll(".nav-item");
+    function handleNavClick(event: Event) {
+      const clickedItem = event.currentTarget as HTMLElement;
+      const targetSection = clickedItem.dataset.section;
 
-    updatedNavItems.forEach((item) => {
-      item.addEventListener("click", () => {
-        const targetSection = (item as HTMLElement).dataset.section;
+      // Update navigation styles
+      updateNavStyles(clickedItem);
 
-        // Remove active class from all nav items
-        updatedNavItems.forEach((nav) => {
-          nav.classList.remove("active");
-          nav.classList.remove("border-primary");
-          nav.classList.add("border-transparent");
-        });
+      // Handle section transitions
+      transitionToSection(targetSection);
+    }
 
-        // Add active class to clicked nav item
-        item.classList.add("active");
-        item.classList.add("border-primary");
-        item.classList.remove("border-transparent");
+    function updateNavStyles(activeItem: HTMLElement) {
+      navItems.forEach((nav) => {
+        nav.classList.remove("active", "border-primary");
+        nav.classList.add("border-transparent");
+      });
 
-        // Hide all sections
+      activeItem.classList.add("active", "border-primary");
+      activeItem.classList.remove("border-transparent");
+    }
+
+    function transitionToSection(targetSection: string | undefined) {
+      if (!targetSection) return;
+
+      // Start fade out
+      sections.forEach((section) => {
+        section.classList.remove("opacity-100");
+        section.classList.add("opacity-0");
+      });
+
+      // After fade out, hide all and show target
+      setTimeout(() => {
         sections.forEach((section) => {
           section.classList.add("hidden");
+          section.classList.remove("block");
         });
 
-        // Show the target section
         const targetElement = document.getElementById(
           `section-${targetSection}`,
         );
         if (targetElement) {
           targetElement.classList.remove("hidden");
+          targetElement.classList.add("block");
+
+          // Trigger fade in after layout update
+          requestAnimationFrame(() => {
+            targetElement.classList.remove("opacity-0");
+            targetElement.classList.add("opacity-100");
+          });
         }
-      });
-    });
+      }, 200);
+    }
   }
 
-  // Initialize on page load
-  document.addEventListener("DOMContentLoaded", initializeNavigation);
-
-  // Initialize on Astro page transitions
+  // Single initialization on Astro page load
   document.addEventListener("astro:page-load", initializeNavigation);
-
-  // Fallback: also initialize immediately if DOM is already ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializeNavigation);
-  } else {
-    initializeNavigation();
-  }
 </script>

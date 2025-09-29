@@ -2,6 +2,7 @@
 import { fade } from "astro:transitions";
 export interface Props {
   objectType: string;
+  id?: string;
   imageSrc: string;
   imageAlt: string;
   title: string;
@@ -17,6 +18,7 @@ export interface Props {
 
 const {
   objectType,
+  id = "1",
   imageSrc,
   imageAlt,
   title,
@@ -51,11 +53,16 @@ const getRatioClass = () => {
 <div
   class={`w-full overflow-hidden cursor-pointer  border-b border-transparent hover:border-primary transition-colors ${className}`}
 >
-  <a href=`/${objectType}/1`>
+  <a href=`/${objectType}/${id}`>
     <div class="flex flex-col md:flex-row">
       {/* Image Section */}
       <div class={`h-64 md:h-full ${getRatioClass()}`}>
-        <img src={imageSrc} alt={imageAlt} class="w-full h-full object-cover" />
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          class="w-full h-full object-cover"
+          transition:name=`image-${id}`
+        />
       </div>
 
       {/* Content Section */}

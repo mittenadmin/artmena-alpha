@@ -2,6 +2,7 @@
 import { fade, slide } from "astro:transitions";
 export interface Props {
   objectType: string;
+  id?: string;
   imageSrc: string;
   imageAlt: string;
   preText?: string;
@@ -15,6 +16,7 @@ export interface Props {
 
 const {
   objectType,
+  id = "1",
   imageSrc,
   imageAlt,
   preText,
@@ -48,10 +50,15 @@ const getRatioClass = () => {
 <div
   class={`overflow-hidden cursor-pointer border-b border-transparent hover:border-primary transition-colors ${className}`}
 >
-  <a href=`/${objectType}/1`>
+  <a href=`/${objectType}/${id}`>
     {/* Image */}
     <div class={`w-full ${getRatioClass()} overflow-hidden`}>
-      <img src={imageSrc} alt={imageAlt} class="w-full h-full object-cover" />
+      <img
+        src={imageSrc}
+        alt={imageAlt}
+        class="w-full h-full object-cover"
+        transition:name=`image-${id}`
+      />
     </div>
     {/* Content */}
     <div class="pt-2">
@@ -63,7 +70,9 @@ const getRatioClass = () => {
       }
 
       {/* Title */}
-      <h3 class="text-lg font-bold text-primary mb-1">{title}</h3>
+      <h3 class="text-lg font-bold text-primary mb-1" transition:name={title}>
+        {title}
+      </h3>
 
       {/* Text Field 1 */}
       {text1 && <p class="text-secondary text-sm leading-relaxed">{text1}</p>}

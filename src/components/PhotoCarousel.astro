@@ -29,8 +29,8 @@ const images = [
 ];
 ---
 
-<div
-  class={`photo-carousel relative w-full h-112 md:h-[700px] overflow-hidden ${className || ""}`}
+<photo-carousel
+  class={`relative w-full h-112 md:h-[700px] overflow-hidden ${className || ""}`}
 >
   <ClientRouter />
   <div
@@ -82,22 +82,26 @@ const images = [
       ))
     }
   </div>
-</div>
+</photo-carousel>
+
+<style>
+  photo-carousel {
+    display: block;
+  }
+</style>
 
 <script>
-  class PhotoCarousel {
-    private carousel: HTMLElement | null;
-    private track: HTMLElement | null;
-    private indicators: NodeListOf<HTMLElement>;
+  class PhotoCarousel extends HTMLElement {
+    private track: HTMLElement | null = null;
+    private indicators: NodeListOf<HTMLElement> | null = null;
     private currentSlide: number = 0;
     private totalSlides: number = 0;
     private intervalId: number | null = null;
     private slideInterval: number = 4000; // 4 seconds
 
-    constructor() {
-      this.carousel = document.querySelector(".photo-carousel");
-      this.track = document.querySelector(".carousel-track");
-      this.indicators = document.querySelectorAll(".carousel-indicator");
+    connectedCallback() {
+      this.track = this.querySelector(".carousel-track");
+      this.indicators = this.querySelectorAll(".carousel-indicator");
 
       if (this.track) {
         this.totalSlides = parseInt(this.track.dataset.slides || "0");
@@ -107,14 +111,14 @@ const images = [
     }
 
     private init(): void {
-      if (!this.carousel || !this.track || this.totalSlides === 0) return;
+      if (!this.track || this.totalSlides === 0) return;
 
       this.setupIndicators();
       this.startAutoSlide();
     }
 
     private setupIndicators(): void {
-      this.indicators.forEach((indicator, index) => {
+      this.indicators?.forEach((indicator, index) => {
         indicator.addEventListener("click", () => {
           this.goToSlide(index);
         });
@@ -132,7 +136,7 @@ const images = [
     }
 
     private updateIndicators(): void {
-      this.indicators.forEach((indicator, index) => {
+      this.indicators?.forEach((indicator, index) => {
         if (index === this.currentSlide) {
           indicator.classList.remove("bg-gray-500", "bg-opacity-50");
           indicator.classList.add("bg-white", "scale-125");
@@ -161,21 +165,17 @@ const images = [
       }
     }
 
+    disconnectedCallback(): void {
+      this.stopAutoSlide();
+    }
+
     public destroy(): void {
       this.stopAutoSlide();
     }
   }
 
-  // Initialize carousel when DOM is loaded
-  document.addEventListener("DOMContentLoaded", () => {
-    new PhotoCarousel();
-  });
-
-  // Handle page navigation cleanup
-  document.addEventListener("astro:before-preparation", () => {
-    const carousel = document.querySelector(".photo-carousel");
-    if (carousel && (carousel as any).carouselInstance) {
-      (carousel as any).carouselInstance.destroy();
-    }
-  });
+  // Register the custom element (only if not already defined)
+  if (!customElements.get("photo-carousel")) {
+    customElements.define("photo-carousel", PhotoCarousel);
+  }
 </script>

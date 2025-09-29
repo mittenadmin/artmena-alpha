@@ -2,6 +2,7 @@
 import Card from "./Card.astro";
 import { ClientRouter } from "astro:transitions";
 export interface CardData {
+  id?: string;
   imageSrc: string;
   imageAlt: string;
   preText?: string;
@@ -80,6 +81,7 @@ const getMaxColsClass = () => {
             cards.map((card, index) => (
               <div class={enableScroll ? "flex-shrink-0 w-64" : ""}>
                 <Card
+                  id={card.id}
                   imageSrc={card.imageSrc}
                   imageAlt={card.imageAlt}
                   preText={card.preText}

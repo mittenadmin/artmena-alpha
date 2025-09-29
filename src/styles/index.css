@@ -73,9 +73,9 @@ p {
 }
 
 /* Set default transition duration for all elements */
-* {
-  transition-duration: 300ms;
-}
+/** {*/
+/*  transition-duration: 300ms;*/
+/*}*/
 
 /* Dynamic grid row limiting - responsive based on grid columns */
 /* Mobile: 1 column - hide items after maxRows */

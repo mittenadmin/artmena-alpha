@@ -6,90 +6,52 @@ import PhotoCarousel from "../components/PhotoCarousel.astro";
 import CardList from "../components/Cards/CardList.astro";
 import HorizontalCardList from "../components/Cards/HorizontalCardList.astro";
 import FeatureSection from "../components/FeatureSection.astro";
+import { artworks } from "../data/artworks";
+import { artists } from "../data/artists";
+import { exhibitions } from "../data/exhibitions";
+import { galleries } from "../data/galleries";
+import { newsArticles } from "../data/news";
 
-export interface CardData {
-  imageSrc: string;
-  imageAlt: string;
-  preText?: string;
-  title: string;
-  description?: string;
-  text1?: string;
-  text2?: string;
-}
-const featureArtwork: CardData[] = [
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop",
-    imageAlt: "Abstract Painting",
-    title: "Desert Mirage",
-    text1: "Ahmed Hassan",
-  },
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
-    imageAlt: "Modern Sculpture",
-    title: "Flowing Forms",
-    text1: "Layla Benali",
-  },
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop",
-    imageAlt: "Mixed Media Art",
-    title: "Urban Dreams",
-    text1: "Fatima Al-Rashid",
-  },
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=400&fit=crop",
-    imageAlt: "Digital Art",
-    title: "Neon Nights",
-    text1: "Omar Khaled",
-  },
-];
+// Get featured artworks (first 4)
+const featureArtwork = artworks.slice(0, 4).map((artwork) => {
+  const artist = artists.find((a) => a.id === artwork.artist_id)!;
+  return {
+    id: artwork.id,
+    imageSrc: artwork.imageUrl,
+    imageAlt: artwork.title,
+    title: artwork.title,
+    text1: artist.name,
+    text2: artwork.price,
+  };
+});
 
-const upcomingExhibitions = [
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=400&h=400&fit=crop&sat=-30",
-    imageAlt: "Gallery Archive Photo",
-    title: "Voices from the Nile",
-    text1: "Jan 12 - May 18, 2025",
-    text2: "Alexandria, Egypt",
-    description: `A compelling multimedia exhibition exploring the intersection of personal and collective memory through contemporary Middle Eastern artists. The show features large-scale installations, intimate photographs, and mixed-media works that examine how cultural heritage transforms across generations. Artists use found objects, family archives, and digital media to create powerful narratives about displacement, identity, and the preservation of stories that might otherwise be lost.`,
-  },
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop&hue=45",
-    imageAlt: "Past Exhibition View",
-    title: "Sacred Geometries",
-    text1: "Feb 8 - Jun 22, 2025",
-    text2: "Doha, Qatar",
-    description: `An innovative showcase of cutting-edge digital art that pushes the boundaries of traditional gallery spaces. This exhibition features interactive installations, virtual reality experiences, and AI-generated artworks from emerging artists who are redefining what art can be in our connected world. Visitors can engage with responsive sculptures, immersive video environments, and algorithmic compositions that blur the lines between artist, audience, and artwork itself.`,
-  },
-];
+// Get upcoming exhibitions
+const upcomingExhibitions = exhibitions
+  .filter((ex) => ex.status === "upcoming" || ex.status === "current")
+  .slice(0, 2)
+  .map((ex) => {
+    const gallery = galleries.find((g) => g.id === ex.gallery_id)!;
+    return {
+      id: ex.id,
+      imageSrc: ex.imageUrl,
+      imageAlt: ex.title,
+      title: ex.title,
+      text1: `${ex.startDate} - ${ex.endDate}`,
+      text2: `${gallery.location}, ${gallery.country}`,
+      description: ex.description,
+    };
+  });
 
-const newArticles = [
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
-    imageAlt: "Modern Art Piece 1",
-    title: "Abstract Expression",
-    description:
-      "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ",
-    text1: "25-05-2025",
-    text2: "Beirut",
-  },
-  {
-    imageSrc:
-      "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
-    imageAlt: "Modern Art Piece 2",
-    title: "Color Symphony",
-    description:
-      "Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ",
-    text1: "25-05-2025",
-    text2: "Beirut",
-  },
-];
+// Get latest news articles
+const newArticles = newsArticles.slice(0, 2).map((article) => ({
+  id: article.id,
+  imageSrc: article.imageUrl,
+  imageAlt: article.title,
+  title: article.title,
+  description: article.excerpt,
+  text1: article.date,
+  text2: article.category,
+}));
 ---
 
 <BaseLayout title="artmena" description="artmena">
