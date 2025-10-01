@@ -39,6 +39,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
+    <div
+      class="absolute w-full h-1000 bg-white z-100 md:hidden items-center pt-50"
+    >
+      Mobile Version coming soon
+    </div>
     <Header />
 
     <!--<main id="main-content" transition:animate={fade({ duration: "0.6s" })}>-->
